@@ -280,18 +280,21 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .ladder{margin-top:2px;background:var(--white);border:1px solid var(--line-soft);padding:clamp(28px,3.2vw,40px);}
 .ladder__h{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;}
 .ladder__h p{font-size:var(--fs-sm);color:var(--gray);line-height:1.5;max-width:58ch;}
-.ladder__row{margin-top:28px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;align-items:end;}
-.ladder__st{background:var(--cream);padding:20px 18px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;
-  transition:background var(--t-fast);}
-.ladder__st:hover{background:var(--olive-tint);}
-.ladder__st:nth-child(1){min-height:104px;}
-.ladder__st:nth-child(2){min-height:126px;}
-.ladder__st:nth-child(3){min-height:148px;}
-.ladder__st:nth-child(4){min-height:170px;background:var(--olive);}
-.ladder__st b{font-size:var(--fs-h4);font-weight:500;letter-spacing:var(--tr-head);}
-.ladder__st span{font-size:var(--fs-xs);color:var(--gray);line-height:1.45;}
-.ladder__st:nth-child(4) b{color:var(--white);}
-.ladder__st:nth-child(4) span{color:rgba(247,245,242,.86);}
+.lad{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.lad__col{background:var(--cream);padding:24px 22px;}
+.lad__t b{display:block;font-size:var(--fs-h4);font-weight:500;letter-spacing:var(--tr-head);}
+.lad__t span{display:block;margin-top:5px;font-size:var(--fs-xs);color:var(--gray);line-height:1.45;}
+.lad__rows{margin-top:18px;display:grid;gap:1px;background:var(--line-soft);}
+.lad__rows > div{background:var(--cream);display:grid;grid-template-columns:1fr 88px;align-items:baseline;gap:12px;padding:11px 0;}
+.lad__rows.-two > div{grid-template-columns:1fr 88px 88px;}
+.lad__rows span{font-size:var(--fs-sm);color:var(--gray);}
+.lad__rows b{font-size:var(--fs-sm);font-weight:600;text-align:right;font-variant-numeric:tabular-nums;}
+.lad__hd{border-bottom:1px solid var(--line);}
+.lad__hd span,.lad__hd b{font-size:var(--fs-xs);font-weight:500;color:var(--gray);letter-spacing:var(--tr-caps);text-transform:uppercase;}
+.lad__rows > div.-max{background:var(--olive);padding:13px 14px;margin-top:1px;}
+.lad__rows > div.-max span,.lad__rows > div.-max b{color:var(--white);}
+.lad__rows > div.-max b.-span{grid-column:2 / -1;}
+.ladder .foot-note{margin-top:18px;}
 
 /* ── Калькулятор: режими, чипси квартир ─────────────────── */
 .modes{display:flex;gap:2px;margin-bottom:30px;background:var(--cream);padding:4px;}
@@ -664,8 +667,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   .card,.card.-big{grid-column:span 12;}
   .steps{grid-template-columns:1fr;}
   .flats{grid-template-columns:1fr;}
-  .ladder__row{grid-template-columns:1fr 1fr;}
-  .ladder__st{min-height:0!important;}
+  .lad{grid-template-columns:1fr;}
   .modes{flex-direction:column;}
   .rot__foot{gap:14px;}
   .banks{grid-template-columns:repeat(2,1fr);}
@@ -927,7 +929,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
           <li>Знижка зберігається — і залежить від розміру внеску</li>
           <li>Графік платежів складаємо під ваш дохід</li>
         </ul>
-        <p class="way__note">У зданому будинку №7 — розтермінування до 2 років, перший внесок від 30%.</p>
+        <p class="way__note">У зданому будинку №7 — розтермінування на 2 роки, перший внесок від 30%.</p>
       </article>
 
       <article class="way">
@@ -946,14 +948,31 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     <div class="ladder" data-in>
       <div class="ladder__h">
         <h3 class="h3">Чим більший перший внесок — <span class="em">тим більша знижка</span></h3>
-        <p>Знижка зростає сходинками. Точний розмір залежить від будинку та строку розтермінування — калькулятор нижче покаже, скільки це у гривні саме для вашої квартири.</p>
+        <p>Розмір знижки залежить від будинку, розміру внеску і строку розтермінування. Нижче — сітка з прайсу відділу продажу: знижка в умовних одиницях на кожен квадратний метр. Скільки це у гривні саме для вашої квартири — порахує калькулятор.</p>
       </div>
-      <div class="ladder__row">
-        <div class="ladder__st"><b>від 20%</b><span>Знижка 50–70 у.о. на м²</span></div>
-        <div class="ladder__st"><b>від 50%</b><span>Знижка 70–90 у.о. на м²</span></div>
-        <div class="ladder__st"><b>від 70%</b><span>Знижка 100–110 у.о. на м²</span></div>
-        <div class="ladder__st"><b>100%</b><span>Максимальна знижка 120 у.о. на м²</span></div>
+      <div class="lad">
+        <div class="lad__col">
+          <div class="lad__t"><b>Будинок №7</b><span>Зданий · мінімальний внесок 30% · розтермінування 2 роки</span></div>
+          <div class="lad__rows">
+            <div class="lad__hd"><span>Перший внесок</span><b>у.о./м²</b></div>
+            <div><span>30%</span><b>−50</b></div>
+            <div><span>50%</span><b>−70</b></div>
+            <div><span>70%</span><b>−100</b></div>
+            <div class="-max"><span>Оплата 100%</span><b>−120</b></div>
+          </div>
+        </div>
+        <div class="lad__col">
+          <div class="lad__t"><b>Будинок №8</b><span>IV кв. 2026 · мінімальний внесок 20%</span></div>
+          <div class="lad__rows -two">
+            <div class="lad__hd"><span>Перший внесок · у.о./м²</span><b>2 роки</b><b>3 роки</b></div>
+            <div><span>20%</span><b>−70</b><b>−50</b></div>
+            <div><span>50%</span><b>−90</b><b>−70</b></div>
+            <div><span>70%</span><b>−110</b><b>−100</b></div>
+            <div class="-max"><span>Оплата 100%</span><b class="-span">−120</b></div>
+          </div>
+        </div>
       </div>
+      <p class="foot-note">Знижка вказана в умовних одиницях на кожен квадратний метр. Коротший строк розтермінування дає більшу знижку. Дані з прайсу відділу продажу — актуальність уточнюйте у менеджера.</p>
     </div>
   </div>
 </section>
@@ -1044,7 +1063,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
         </div>
 
         <div class="fld" data-fld="iterm" hidden>
-          <div class="fld__top"><span class="caps">Строк розтермінування</span></div>
+          <div class="fld__top"><span class="caps">Строк розтермінування</span><b data-iterm-l></b></div>
           <div class="pick" data-iterms></div>
         </div>
 
@@ -1184,7 +1203,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
       </details>
       <details name="faq">
         <summary>Який мінімальний перший внесок?<i></i></summary>
-        <p class="faq__a">У будинку №8 — від 20%, строк розтермінування до 3 років. У зданому будинку №7 — від 30%, строк до 2 років. За програмою єОселя перший внесок на первинному ринку — від 30%.</p>
+        <p class="faq__a">У будинку №8 — від 20%, строк розтермінування до 3 років. У зданому будинку №7 — від 30%, строк розтермінування 2 роки. За програмою єОселя перший внесок на первинному ринку — від 30%.</p>
       </details>
       <details name="faq">
         <summary>Чим відрізняються будинок №7 і будинок №8?<i></i></summary>
@@ -1385,7 +1404,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     {t:'3-кімнатна',h:7,a:[90.6,91.7],ppm:1110,eo:true, ready:'зданий'}
   ];
   const MINDOWN={7:30,8:20};                 // мінімальний перший внесок, %
-  const ITERMS ={7:[1,2],8:[2,3]};           // доступні строки розтермінування, років
+  const ITERMS ={7:[2],8:[2,3]};             // строки з шахматок: №7 — лише 2 роки, №8 — 2 або 3
   // Знижка з прайсу, у.о. за м². Сходинки за розміром першого внеску.
   const disc=(h,d,y)=>{ if(d>=100)return 120;
     if(h===7)  return d>=70?100:d>=50?70:d>=30?50:0;
@@ -1401,13 +1420,18 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   const maxTerm=h=>ITERMS[h][ITERMS[h].length-1];
   let iterm=maxTerm(UNITS[u].h),itermTouched=false;   // за замовчуванням — найдовший строк
 
-  const setArea=()=>{const U=UNITS[u];area.min=U.a[0];area.max=U.a[1];area.step=.1;
-    area.value=Math.min(Math.max(+area.value,U.a[0]),U.a[1]);};
+  const setArea=reset=>{const U=UNITS[u];area.min=U.a[0];area.max=U.a[1];area.step=.1;
+    area.value=reset?U.a[0]:Math.min(Math.max(+area.value,U.a[0]),U.a[1]);};
   const setDown=()=>{const m=mode==='eo'?30:MINDOWN[UNITS[u].h];
     down.min=m;down.max=95;if(+down.value<m)down.value=m;};
+  const yr=y=>y===1?'рік':(y<5?'роки':'років');
   const setITerms=()=>{const list=ITERMS[UNITS[u].h];
     if(!itermTouched||!list.includes(iterm))iterm=maxTerm(UNITS[u].h);
-    $('[data-iterms]').innerHTML=list.map(y=>'<button type="button" data-iterm="'+y+'"'+(y===iterm?' class="is-on"':'')+'><b>'+y+'</b>'+(y===1?'рік':'роки')+'</button>').join('');
+    // якщо строк один — показуємо його значенням у підписі, а не кнопкою-заглушкою
+    const one=list.length<2;
+    $('[data-iterm-l]').textContent=one?iterm+' '+yr(iterm):'';
+    $('[data-iterms]').hidden=one;
+    $('[data-iterms]').innerHTML=one?'':list.map(y=>'<button type="button" data-iterm="'+y+'"'+(y===iterm?' class="is-on"':'')+'><b>'+y+'</b>'+yr(y)+'</button>').join('');
     $$('[data-iterm]').forEach(b=>b.addEventListener('click',()=>{iterm=+b.dataset.iterm;itermTouched=true;setITerms();calc();}));};
 
   const show=(k,on)=>{const el=r.querySelector('[data-fld="'+k+'"]');if(el)el.hidden=!on;};
@@ -1475,7 +1499,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     mode=b.dataset.mode;setDown();calc();}));
   $$('[data-units] button').forEach(b=>b.addEventListener('click',()=>{
     $$('[data-units] button').forEach(x=>x.classList.remove('is-on'));b.classList.add('is-on');
-    u=+b.dataset.u;setArea();setDown();setITerms();calc();}));
+    u=+b.dataset.u;setArea(true);setDown();setITerms();calc();}));
   $$('[data-rate]').forEach(b=>b.addEventListener('click',()=>{
     $$('[data-rate]').forEach(x=>x.classList.remove('is-on'));b.classList.add('is-on');calc();}));
   [area,down,term].forEach(el=>el.addEventListener('input',calc));
