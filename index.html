@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Квартира в ЖК «Парк Совіньйон» — знижка, розтермінування або єОселя</title>
-<meta name="description" content="Три способи купити квартиру в ЖК «Парк Совіньйон»: знижка до 11% при повній оплаті, розтермінування без подорожчання до 3 років або єОселя від 3% річних. Малоповерховий комплекс у власному парку біля моря. Будинок №7 зданий, будинок №8 — IV кв. 2026.">
+<meta name="description" content="Три способи купити квартиру в ЖК «Парк Совіньйон»: знижка 120 у.о. на м² при повній оплаті, розтермінування без подорожчання до 3 років або єОселя від 3% річних. Малоповерховий комплекс у власному парку біля моря. Будинок №7 зданий, будинок №8 — IV кв. 2026.">
 <link rel="icon" href="favicon/favicon.ico">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Квартира в «Парк Совіньйон» — знижка, розтермінування або єОселя">
@@ -243,9 +243,12 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .rot__dots button.is-on em::after{animation:rotbar 6s linear forwards;}
 .rot__dots button.is-done em::after{transform:scaleX(1);}
 @keyframes rotbar{from{transform:scaleX(0);}to{transform:scaleX(1);}}
-.rot__note{flex:1 1 260px;min-width:0;font-size:var(--fs-sm);color:rgba(247,245,242,.82);line-height:1.5;max-width:52ch;
-  transition:opacity var(--t-fast);}
-.rot__note.-out{opacity:0;}
+/* Підписи так само стоять в одній комірці гріда: блок бере висоту найдовшого,
+   тому нічого під ним — і над ним, бо герой притиснутий донизу, — не стрибає. */
+.rot__note{display:grid;flex:1 1 260px;min-width:0;max-width:52ch;
+  font-size:var(--fs-sm);color:rgba(247,245,242,.82);line-height:1.5;}
+.rot__note > i{grid-area:1/1;font-style:normal;opacity:0;transition:opacity .3s;}
+.rot__note > i.is-on{opacity:1;}
 
 /* ── Три способи купити ─────────────────────────────────── */
 .ways{margin-top:clamp(40px,5vw,60px);display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
@@ -727,7 +730,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
       <span class="ln"><span>Власна квартира</span></span>
     </h1>
     <div class="rot" data-rot aria-live="polite">
-      <i class="is-on">зі знижкою до 11% при повній оплаті</i>
+      <i class="is-on">зі знижкою 120 у.о. на м²</i>
       <i>з розтермінуванням до 3 років без подорожчання</i>
       <i>від 3% річних за програмою єОселя</i>
     </div>
@@ -737,7 +740,11 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
         <button type="button" data-rot-dot="1" role="tab" aria-label="Розтермінування"><em></em></button>
         <button type="button" data-rot-dot="2" role="tab" aria-label="Програма єОселя"><em></em></button>
       </div>
-      <p class="rot__note" data-rot-note>При повній оплаті — максимальна знижка від прайсу забудовника</p>
+      <div class="rot__note" data-rot-note>
+        <i class="is-on">При повній оплаті — максимальна знижка від прайсу забудовника</i>
+        <i>Без відсотків і комісій. Перший внесок від 20%, сума не змінюється до останнього платежу</i>
+        <i>Державна програма: 3% або 7% річних залежно від категорії, строк до 20 років</i>
+      </div>
     </div>
     <div class="hero__foot">
       <p class="hero__sub">Малоповерховий комплекс біля моря з власною парковою зоною. Будинок №7 зданий, будинок №8 — IV кв. 2026. Підберемо квартиру і порахуємо всі три варіанти оплати.</p>
@@ -896,13 +903,13 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     <div data-in>
       <span class="eyebrow">Умови купівлі</span>
       <h2 class="h2">Три способи <span class="em">купити квартиру</span></h2>
-      <p class="lead">Ціна одна — прайс забудовника. Різниця в тому, як ви платите: чим більше вносите одразу, тим нижча кінцева вартість. Оберіть зручний варіант — або порівняйте всі три в калькуляторі.</p>
+      <p class="lead">Ціна одна — прайс забудовника. Різниця в тому, як ви платите: чим більше вносите одразу, тим нижча кінцева вартість. Оберіть зручний варіант — калькулятор нижче покаже, скільки виходить у гривні.</p>
     </div>
 
     <div class="ways" data-in-kids>
       <article class="way -hi">
         <div class="way__top"><span class="way__no">Спосіб 01</span><span class="way__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5"/><circle cx="16" cy="13" r="1.4"/></svg></span></div>
-        <div class="way__big">до 11%<small>знижка при повній оплаті</small></div>
+        <div class="way__big">120 у.о.<small>знижка на кожному м² при повній оплаті</small></div>
         <ul>
           <li>Діє і на зданий будинок №7, і на будинок №8</li>
           <li>Вартість фіксується в договорі — далі не змінюється</li>
@@ -939,13 +946,13 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     <div class="ladder" data-in>
       <div class="ladder__h">
         <h3 class="h3">Чим більший перший внесок — <span class="em">тим більша знижка</span></h3>
-        <p>Знижка зростає сходинками: від базової до максимальної при повній оплаті. Точний відсоток для вашої квартири і вашого внеску порахує калькулятор нижче.</p>
+        <p>Знижка зростає сходинками. Точний розмір залежить від будинку та строку розтермінування — калькулятор нижче покаже, скільки це у гривні саме для вашої квартири.</p>
       </div>
       <div class="ladder__row">
-        <div class="ladder__st"><b>від 20%</b><span>Базова знижка та розтермінування до 3 років</span></div>
-        <div class="ladder__st"><b>від 50%</b><span>Знижка помітно більша</span></div>
-        <div class="ladder__st"><b>від 70%</b><span>Майже максимальна знижка</span></div>
-        <div class="ladder__st"><b>100%</b><span>Максимальна знижка — до 11% від прайсу</span></div>
+        <div class="ladder__st"><b>від 20%</b><span>Знижка 50–70 у.о. на м²</span></div>
+        <div class="ladder__st"><b>від 50%</b><span>Знижка 70–90 у.о. на м²</span></div>
+        <div class="ladder__st"><b>від 70%</b><span>Знижка 100–110 у.о. на м²</span></div>
+        <div class="ladder__st"><b>100%</b><span>Максимальна знижка 120 у.о. на м²</span></div>
       </div>
     </div>
   </div>
@@ -1012,8 +1019,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     <div class="calc" data-calc data-in>
       <div class="calc__in">
         <div class="modes" data-modes role="tablist" aria-label="Спосіб оплати">
-          <button type="button" class="is-on" data-mode="cash" role="tab">Одразу, 100%</button>
-          <button type="button" data-mode="inst" role="tab">Розтермінування</button>
+          <button type="button" class="is-on" data-mode="inst" role="tab">Розтермінування</button>
           <button type="button" data-mode="eo" role="tab">єОселя</button>
         </div>
 
@@ -1058,7 +1064,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
 
       <div class="calc__out">
         <div data-out hidden>
-          <span class="caps" style="color:#fff" data-out-cap>Вартість при повній оплаті</span>
+          <span class="caps" style="color:#fff" data-out-cap>Щомісячний платіж</span>
           <div class="calc__sum"><span data-sum>0</span><i data-sum-u>грн</i></div>
           <div class="calc__save" data-save hidden></div>
           <div class="calc__rows" data-rows></div>
@@ -1170,7 +1176,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     <div class="faq" data-in>
       <details name="faq">
         <summary>Яка максимальна знижка і за яких умов?<i></i></summary>
-        <p class="faq__a">Максимальна знижка — до 11% від прайсу забудовника, вона діє при повній оплаті вартості квартири. Якщо берете розтермінування, знижка теж є, але менша: чим більший перший внесок, тим вона більша. Точний відсоток для конкретної квартири порахує калькулятор вище або менеджер.</p>
+        <p class="faq__a">Максимальна знижка — 120 у.о. на кожному квадратному метрі, вона діє при повній оплаті вартості квартири. Якщо берете розтермінування, знижка теж є, але менша: чим більший перший внесок, тим вона більша. Точний розмір для конкретної квартири порахує калькулятор вище або менеджер.</p>
       </details>
       <details name="faq">
         <summary>Розтермінування платне? Скільки я переплачу?<i></i></summary>
@@ -1331,10 +1337,8 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
 
 // Ротатор умов у героєві: заголовок + синхронний підпис під ним
 (()=>{const box=document.querySelector('[data-rot]');if(!box)return;
-  const items=[...box.children],dots=[...document.querySelectorAll('[data-rot-dot]')],note=document.querySelector('[data-rot-note]');
-  const NOTES=['При повній оплаті — максимальна знижка від прайсу забудовника',
-               'Без відсотків і комісій. Перший внесок від 20%, сума не змінюється до останнього платежу',
-               'Державна програма: 3% або 7% річних залежно від категорії, строк до 20 років'];
+  const items=[...box.children],dots=[...document.querySelectorAll('[data-rot-dot]')],
+        notes=[...document.querySelectorAll('[data-rot-note] > i')];
   let i=0,timer=null,paused=false;
   const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const go=x=>{i=(x+items.length)%items.length;
@@ -1342,8 +1346,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     dots.forEach((d,k)=>{d.classList.remove('is-on','is-done');
       if(k<i)d.classList.add('is-done'); if(k===i)d.classList.add('is-on');
       d.setAttribute('aria-selected',k===i);});
-    if(note){note.classList.add('-out');
-      setTimeout(()=>{note.textContent=NOTES[i];note.classList.remove('-out');},220);}};
+    notes.forEach((el,k)=>el.classList.toggle('is-on',k===i));};
   const play=()=>{if(still)return;clearInterval(timer);timer=setInterval(()=>{if(!paused)go(i+1);},6000);};
   dots.forEach((d,k)=>d.addEventListener('click',()=>{go(k);play();}));
   // на ховері зупиняємо — щоб фраза не змінилась, поки людина її читає
@@ -1393,7 +1396,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   const m2=n=>n.toFixed(1).replace('.',',');
   const pay=(L,pct,n)=>{const i=pct/100/12;return L?L*i*Math.pow(1+i,n)/(Math.pow(1+i,n)-1):0;};
 
-  let mode='cash', u=2;
+  let mode='inst', u=2;
   const area=$('[data-area]'),down=$('[data-down]'),term=$('[data-term]');
   const maxTerm=h=>ITERMS[h][ITERMS[h].length-1];
   let iterm=maxTerm(UNITS[u].h),itermTouched=false;   // за замовчуванням — найдовший строк
@@ -1419,7 +1422,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     const blocked = mode==='eo' && !U.eo;
     $('[data-out]').hidden=blocked;
     $('[data-alert]').hidden=!blocked;
-    show('down', !blocked && mode!=='cash');
+    show('down', !blocked);
     show('iterm',!blocked && mode==='inst');
     show('eterm',!blocked && mode==='eo');
     show('rate', !blocked && mode==='eo');
@@ -1430,19 +1433,6 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     const rows=$('[data-rows]'),save=$('[data-save]'),cap=$('[data-cap]');
     cap.hidden=true;save.hidden=true;
 
-    if(mode==='cash'){
-      const d=disc(U.h,100,0), price=A*(U.ppm-d)*FX;
-      $('[data-out-cap]').textContent='Вартість при повній оплаті';
-      $('[data-sum]').textContent=fmt(price);
-      $('[data-sum-u]').textContent='грн';
-      save.hidden=false;
-      save.textContent='Економія '+fmt(list-price)+' грн · знижка '+ (d/U.ppm*100).toFixed(1).replace('.',',') +'%';
-      rows.innerHTML=
-        row('Вартість за прайсом', fmt(list)+' грн')+
-        row('Ціна за 1 м²', fmt((U.ppm-d)*FX)+' грн')+
-        row('Заїзд', U.h===7?'одразу після угоди':U.ready);
-    }
-
     if(mode==='inst'){
       const dp=+down.value, d=disc(U.h,dp,iterm), price=A*(U.ppm-d)*FX;
       const first=price*dp/100, months=iterm*12, m=(price-first)/months;
@@ -1450,10 +1440,11 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
       $('[data-sum]').textContent=fmt(m);
       $('[data-sum-u]').textContent='грн / міс';
       if(d){save.hidden=false;
-        save.textContent='Знижка '+(d/U.ppm*100).toFixed(1).replace('.',',')+'% · мінус '+fmt(list-price)+' грн';}
+        save.textContent='Знижка '+d+' у.о. на м² · мінус '+fmt(list-price)+' грн';}
       rows.innerHTML=
-        row('Перший внесок '+dp+'%', fmt(first)+' грн')+
+        row('Вартість за прайсом', fmt(list)+' грн')+
         row('Вартість зі знижкою', fmt(price)+' грн')+
+        row('Перший внесок '+dp+'%', fmt(first)+' грн')+
         row('Платежів', months+' × '+fmt(m)+' грн')+
         row('Переплата за розтермінування', '0 грн');
     }
