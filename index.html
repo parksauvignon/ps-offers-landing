@@ -243,7 +243,7 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .rot__dots button.is-on em::after{animation:rotbar 6s linear forwards;}
 .rot__dots button.is-done em::after{transform:scaleX(1);}
 @keyframes rotbar{from{transform:scaleX(0);}to{transform:scaleX(1);}}
-.rot__note{font-size:var(--fs-sm);color:rgba(247,245,242,.82);line-height:1.5;max-width:52ch;
+.rot__note{flex:1 1 260px;min-width:0;font-size:var(--fs-sm);color:rgba(247,245,242,.82);line-height:1.5;max-width:52ch;
   transition:opacity var(--t-fast);}
 .rot__note.-out{opacity:0;}
 
