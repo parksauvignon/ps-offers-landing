@@ -199,7 +199,7 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 }
 .hero__h1{
   /* похідна від токена display, а не новий розмір: заголовок має вміщатись в один рядок */
-  font-size:calc(var(--fs-display) * .74);font-weight:500;text-transform:uppercase;
+  font-size:calc(var(--fs-display) * .74);font-weight:600;text-transform:uppercase;
   line-height:var(--lh-display);letter-spacing:var(--tr-display);
   color:var(--cream);max-width:none;white-space:nowrap;
 }
@@ -207,7 +207,7 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .hero__h1 .ln > span{display:block;transform:translateY(105%);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;}
 .hero__h1 .ln:nth-child(2) > span{animation-delay:.14s;}
 .hero__h1 .hl{color:var(--yellow);font-weight:600;}
-.hero__foot{display:flex;align-items:flex-end;justify-content:flex-start;gap:44px;margin-top:34px;}
+.hero__foot{display:flex;align-items:flex-end;justify-content:flex-start;gap:44px;margin-top:clamp(22px,2.4vw,34px);}
 .hero__cta{display:flex;gap:12px;flex-shrink:0;opacity:0;animation:fade .9s cubic-bezier(.2,.7,.2,1) .62s forwards;}
 .hero__geo{
   position:absolute;left:0;right:0;bottom:22px;z-index:3;
@@ -219,7 +219,7 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 /* ── Ротатор умов у героєві ─────────────────────────────── */
 /* Слова в плашці над заголовком і є перемикачами: активне підсвічене жовтим. */
 /* Умови перемикаються окремими кнопками під текстом. */
-.hero__switch{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;
+.hero__switch{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(18px,2vw,28px);
   opacity:0;animation:fade .9s cubic-bezier(.2,.7,.2,1) .58s forwards;}
 .hero__switch button{
   padding:9px 17px;border-radius:999px;white-space:nowrap;
@@ -231,14 +231,14 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 
 /* Всі фрази лежать в одній комірці гріда: контейнер бере висоту найдовшої,
    тому при зміні фрази верстка не стрибає — і на мобільному теж. */
-.rot{display:grid;margin-top:.22em;max-width:none;
-  font-size:var(--fs-h2);font-weight:600;line-height:1.05;letter-spacing:var(--tr-head);color:var(--yellow);
+.rot{display:grid;margin-top:clamp(8px,1vw,14px);max-width:none;
+  font-size:calc(var(--fs-h2) * .8);font-weight:600;line-height:1.08;letter-spacing:var(--tr-head);color:var(--yellow);
   opacity:0;animation:fade .9s cubic-bezier(.2,.7,.2,1) .34s forwards;}
 .rot > i{grid-area:1/1;font-style:normal;opacity:0;transform:translateY(.3em);
   transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1);}
 .rot > i.is-on{opacity:1;transform:none;}
 /* Підписи так само стоять в одній комірці гріда — висота блока не змінюється. */
-.rot__note{display:grid;margin-top:18px;max-width:50ch;
+.rot__note{display:grid;margin-top:clamp(12px,1.3vw,18px);max-width:50ch;
   font-size:var(--fs-sm);line-height:1.5;color:var(--cream);
   opacity:0;animation:fade .9s cubic-bezier(.2,.7,.2,1) .46s forwards;}
 .rot__note > i{grid-area:1/1;font-style:normal;opacity:0;transition:opacity .3s;}
@@ -440,7 +440,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
 
 /* ── Кроки ──────────────────────────────────────────────── */
 .steps{margin-top:clamp(40px,5vw,56px);display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
-.step{background:var(--white);border:1px solid var(--line-soft);padding:32px 26px;min-height:216px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;transition:background var(--t-fast),border-color var(--t-fast);}
+.step{background:var(--white);border:1px solid var(--line-soft);padding:32px 26px;min-height:216px;display:flex;flex-direction:column;justify-content:flex-start;gap:22px;transition:background var(--t-fast),border-color var(--t-fast);}
 .step:hover{background:var(--olive);border-color:var(--olive);}
 .step b{font-size:var(--fs-num);font-weight:400;line-height:1;letter-spacing:var(--tr-display);color:var(--olive);transition:color var(--t-fast);}
 .step:hover b,.step:hover .h4{color:var(--white);}
@@ -646,12 +646,16 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   :root{--pad-side:20px;}
   body{padding-bottom:74px;}
   .bar{display:flex;}
-  .qz__fab{right:14px;bottom:calc(80px + env(safe-area-inset-bottom));padding:13px 20px;}
+  .qz__fab{right:14px;bottom:calc(80px + env(safe-area-inset-bottom));padding:13px 20px;
+    opacity:0;pointer-events:none;transition:opacity var(--t-base);}
+  body.is-scrolled .qz__fab{opacity:1;pointer-events:auto;}
   .qz{right:12px;left:12px;bottom:calc(140px + env(safe-area-inset-bottom));}
   .qz__box{width:100%;height:min(500px,calc(100vh - 210px));}
   .hero__in{padding:132px var(--pad-side) 78px;}
-  .hero__foot{flex-direction:column;align-items:stretch;gap:20px;}
-  .hero__switch{flex-wrap:nowrap;gap:6px;margin-top:22px;}
+  .hero__foot{flex-direction:column;align-items:stretch;gap:18px;}
+  /* 8,61 — виміряна ширина «ВЛАСНА КВАРТИРА» у кеглях; 10,6vw−4px гарантує один рядок від 320px */
+  .hero__h1{font-size:min(calc(10.6vw - 4px), var(--fs-display));}
+  .hero__switch{flex-wrap:nowrap;gap:6px;}
   .hero__switch button{padding:8px 11px;font-size:10px;letter-spacing:.08em;}
   .hero__cta{flex-direction:column;}
   .hero__cta .btn{justify-content:center;}
@@ -993,6 +997,14 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
       <p class="lead">Держава компенсує банку частину ставки — ви платите 3% або 7% річних залежно від категорії. Строк до 20 років, перший внесок від 10%. Перевіримо вашу відповідність програмі безкоштовно, за 5 хвилин по телефону, а якщо все підходить — організуємо консультацію з банком-партнером і допоможемо зібрати документи для заявки.</p>
     </div>
 
+    <span class="caps" style="display:block;margin-top:clamp(34px,4vw,48px);color:var(--gray)">Банки-партнери програми</span>
+    <div class="banks" data-in style="margin-top:14px">
+      <div class="bank -star"><img src="logos/oschadbank.png" alt="Ощадбанк" loading="lazy"><div><b>Ощадбанк</b><span>Рекомендуємо</span></div></div>
+      <div class="bank"><img src="logos/privatbank.png" alt="ПриватБанк" loading="lazy"><div><b>ПриватБанк</b><span>Партнер</span></div></div>
+      <div class="bank"><img src="logos/taskombank.png" alt="ТАСкомбанк" loading="lazy"><div><b>ТАСкомбанк</b><span>Партнер</span></div></div>
+      <div class="bank"><img src="logos/ukrgasbank.png" alt="Укргазбанк" loading="lazy"><div><b>Укргазбанк</b><span>Партнер</span></div></div>
+      <div class="bank"><img src="logos/radabank.png" alt="Радабанк" loading="lazy"><div><b>Радабанк</b><span>Партнер</span></div></div>
+    </div>
     <p class="foot-note" data-in>Не підходите під єОселю? Залишаються знижка при повній оплаті та розтермінування без подорожчання — вони не залежать від категорії, статусу та наявності іншого житла.</p>
   </div>
 </section>
@@ -1137,17 +1149,9 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
       <div class="step"><b>01</b><div><h3 class="h4">Підбір і розрахунок</h3><p>Підбираємо квартиру під бюджет і склад сім'ї. Рахуємо всі три способи оплати — ви бачите різницю в цифрах.</p></div></div>
       <div class="step"><b>02</b><div><h3 class="h4">Перегляд і бронювання</h3><p>Показуємо квартиру наживо в зданому будинку №7. Фіксуємо обрану квартиру та її вартість.</p></div></div>
       <div class="step"><b>03</b><div><h3 class="h4">Оформлення</h3><p>Повна оплата або графік розтермінування — договір із забудовником. За єОселею: заявка через «Дію», документи від забудовника готуємо ми.</p></div></div>
-      <div class="step"><b>04</b><div><h3 class="h4">Ключі</h3><p>Будинок №7 — заїзд одразу після угоди. Будинок №8, що на стадії будівництва, — IV квартал 2026 року.</p></div></div>
+      <div class="step"><b>04</b><div><h3 class="h4">Ключі</h3><p>Будинок №7 — заїзд одразу після угоди. Будинок №8 здається в IV кварталі 2026 року.</p></div></div>
     </div>
 
-    <h2 class="h2" style="margin-top:clamp(64px,8vw,104px)" data-in>Банки-партнери <span class="em">єОселі</span></h2>
-    <div class="banks" data-in>
-      <div class="bank -star"><img src="logos/oschadbank.png" alt="Ощадбанк" loading="lazy"><div><b>Ощадбанк</b><span>Рекомендуємо</span></div></div>
-      <div class="bank"><img src="logos/privatbank.png" alt="ПриватБанк" loading="lazy"><div><b>ПриватБанк</b><span>Партнер</span></div></div>
-      <div class="bank"><img src="logos/taskombank.png" alt="ТАСкомбанк" loading="lazy"><div><b>ТАСкомбанк</b><span>Партнер</span></div></div>
-      <div class="bank"><img src="logos/ukrgasbank.png" alt="Укргазбанк" loading="lazy"><div><b>Укргазбанк</b><span>Партнер</span></div></div>
-      <div class="bank"><img src="logos/radabank.png" alt="Радабанк" loading="lazy"><div><b>Радабанк</b><span>Партнер</span></div></div>
-    </div>
   </div>
 </section>
 
@@ -1278,7 +1282,7 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   <button class="x" aria-label="Закрити">✕</button>
   <button class="p" aria-label="Попереднє">‹</button>
   <button class="n" aria-label="Наступне">›</button>
-  <img alt="">
+  <img alt="Фото у збільшенні">
   <div class="lb__no">01 / 08</div>
 </div>
 
@@ -1509,12 +1513,16 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
 var GA_ADS_ID='AW-16475671325',GA_CONV_LABEL='MgUsCKiYoJAcEJ2Wm7A9';
 var GPLUS_TOKEN='l0LVin9ZBjVVbShz-ggXPNXFwK_UF-WtLgizXpPHYfc',GPLUS_PARTNER_ID=21980,GPLUS_URL='https://crm.g-plus.app/api/actions';
 
+// Кнопка квіза на мобільному з'являється після першого екрана
+(()=>{const on=()=>document.body.classList.toggle('is-scrolled',scrollY>200);
+  addEventListener('scroll',on,{passive:true});on();})();
+
 // Квіз: відкривається в модалці, лід приходить із iframe і йде в CRM шляхом лендингу
 (()=>{const box=document.querySelector('[data-qz]'),frame=document.querySelector('[data-qz-frame]');
   if(!box||!frame)return;
   const QUIZ='https://parksauvignon.github.io/ps-quiz/';
   const open=()=>{
-    if(!frame.getAttribute('src'))frame.setAttribute('src',QUIZ+'?embed=1&src=offers-landing');
+    if(!frame.getAttribute('src'))frame.setAttribute('src',QUIZ+'?embed=1&v=2&src=offers-landing');
     box.classList.add('is-on');box.setAttribute('aria-hidden','false');
     document.body.classList.add('qz-open');
     if(typeof gtag==='function')gtag('event','quiz_open',{place:'offers-landing'});};
