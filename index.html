@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Квартира в ЖК «Парк Совіньйон» — знижка, розтермінування або єОселя</title>
-<meta name="description" content="Три способи купити квартиру в ЖК «Парк Совіньйон»: знижка 120 у.о. на м² при повній оплаті, розтермінування без подорожчання до 3 років або єОселя від 3% річних. Малоповерховий комплекс у власному парку біля моря. Будинок №7 зданий, будинок №8 — IV кв. 2026.">
+<meta name="description" content="Три способи купити квартиру в ЖК «Парк Совіньйон»: знижка 120 у.о. на м² при повній оплаті, розтермінування без подорожчання до 3 років або єОселя від 3% річних. Малоповерховий комплекс у власному парку біля моря. Будинок №7 зданий, будинок №8 — на стадії будівництва.">
 <link rel="icon" href="favicon/favicon.ico">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Квартира в «Парк Совіньйон» — знижка, розтермінування або єОселя">
@@ -170,7 +170,8 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .hdr__nav{display:flex;gap:32px;margin-left:auto;}
 .hdr__nav a{font-size:var(--fs-sm);color:rgba(247,245,242,.85);transition:color var(--t-fast);}
 .hdr__nav a:hover{color:var(--yellow);}
-.hdr__tel{display:inline-flex;align-items:center;padding:11px 20px;border-radius:999px;background:var(--yellow);color:var(--navy);font-size:var(--fs-sm);font-weight:600;letter-spacing:.02em;white-space:nowrap;transition:background var(--t-fast),transform var(--t-fast);}
+.hdr__tel{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:999px;background:var(--yellow);color:var(--navy);font-size:var(--fs-sm);font-weight:600;letter-spacing:.02em;white-space:nowrap;transition:background var(--t-fast),transform var(--t-fast);}
+.hdr__tel svg{width:16px;height:16px;flex-shrink:0;}
 .hdr__tel:hover{background:var(--yellow-d);}
 .hdr__tel:active{transform:translateY(1px);}
 .hdr.is-stuck{background:rgba(247,245,242,.93);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 0 var(--line);padding:12px 0;}
@@ -196,25 +197,16 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
   max-width:var(--container);margin:0 auto;padding:150px var(--pad-side) 68px;
   display:flex;flex-direction:column;justify-content:flex-end;
 }
-.hero__tag{
-  align-self:flex-start;display:inline-flex;align-items:center;gap:11px;
-  padding:9px 17px;border-radius:999px;
-  background:rgba(247,245,242,.12);backdrop-filter:blur(10px);
-  font-size:var(--fs-xs);font-weight:500;letter-spacing:var(--tr-caps);text-transform:uppercase;
-  color:var(--cream);margin-bottom:30px;
-}
-.hero__tag i{width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 4px rgba(240,207,75,.2);}
 .hero__h1{
-  font-size:var(--fs-display);font-weight:500;
+  font-size:var(--fs-display);font-weight:500;text-transform:uppercase;
   line-height:var(--lh-display);letter-spacing:var(--tr-display);
-  color:var(--cream);max-width:13ch;
+  color:var(--cream);max-width:15ch;
 }
 .hero__h1 .ln{display:block;overflow:hidden;padding-bottom:.04em;}
 .hero__h1 .ln > span{display:block;transform:translateY(105%);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;}
 .hero__h1 .ln:nth-child(2) > span{animation-delay:.14s;}
 .hero__h1 .hl{color:var(--yellow);font-weight:600;}
-.hero__foot{display:flex;align-items:flex-end;justify-content:space-between;gap:44px;margin-top:38px;}
-.hero__sub{font-size:var(--fs-lead);line-height:1.5;color:rgba(247,245,242,.8);max-width:44ch;opacity:0;animation:fade .9s cubic-bezier(.2,.7,.2,1) .5s forwards;text-wrap:pretty;}
+.hero__foot{display:flex;align-items:flex-end;justify-content:flex-start;gap:44px;margin-top:34px;}
 .hero__cta{display:flex;gap:12px;flex-shrink:0;opacity:0;animation:fade .9s cubic-bezier(.2,.7,.2,1) .62s forwards;}
 .hero__geo{
   position:absolute;left:0;right:0;bottom:22px;z-index:3;
@@ -225,15 +217,20 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 
 /* ── Ротатор умов у героєві ─────────────────────────────── */
 /* Слова в плашці над заголовком і є перемикачами: активне підсвічене жовтим. */
-.hero__tag button{font:inherit;letter-spacing:inherit;text-transform:inherit;
-  color:rgba(247,245,242,.6);transition:color var(--t-fast);}
-.hero__tag button:hover{color:var(--cream);}
-.hero__tag button.is-on{color:var(--yellow);}
-.hero__tag em{font-style:normal;color:rgba(247,245,242,.3);margin:0 -3px;}
+/* Умови перемикаються окремими кнопками під текстом. */
+.hero__switch{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;
+  opacity:0;animation:fade .9s cubic-bezier(.2,.7,.2,1) .58s forwards;}
+.hero__switch button{
+  padding:9px 17px;border-radius:999px;white-space:nowrap;
+  font-size:var(--fs-xs);font-weight:500;letter-spacing:var(--tr-caps);text-transform:uppercase;
+  background:rgba(247,245,242,.14);color:rgba(247,245,242,.82);backdrop-filter:blur(10px);
+  transition:background var(--t-fast),color var(--t-fast);}
+.hero__switch button:hover{background:rgba(247,245,242,.24);color:var(--cream);}
+.hero__switch button.is-on{background:var(--yellow);color:var(--navy);font-weight:600;}
 
 /* Всі фрази лежать в одній комірці гріда: контейнер бере висоту найдовшої,
    тому при зміні фрази верстка не стрибає — і на мобільному теж. */
-.rot{display:grid;margin-top:.18em;max-width:19ch;
+.rot{display:grid;align-items:end;margin-top:.18em;max-width:19ch;
   font-size:var(--fs-h2);font-weight:600;line-height:1.05;letter-spacing:var(--tr-head);color:var(--yellow);
   opacity:0;animation:fade .9s cubic-bezier(.2,.7,.2,1) .34s forwards;}
 .rot > i{grid-area:1/1;font-style:normal;opacity:0;transform:translateY(.3em);
@@ -246,8 +243,18 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .rot__note > i{grid-area:1/1;font-style:normal;opacity:0;transition:opacity .3s;}
 .rot__note > i.is-on{opacity:1;}
 
+/* ── Перемикач будинків ─────────────────────────────────── */
+.hswitch{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px;}
+.hswitch button{
+  padding:11px 20px;border-radius:999px;font-size:var(--fs-sm);font-weight:500;
+  background:var(--white);color:var(--gray);box-shadow:inset 0 0 0 1px var(--line);
+  transition:background var(--t-fast),color var(--t-fast),box-shadow var(--t-fast);}
+.hswitch button:hover{color:var(--navy);box-shadow:inset 0 0 0 1px var(--olive);}
+.hswitch button.is-on{background:var(--olive);color:var(--white);box-shadow:none;}
+
 /* ── Три способи купити ─────────────────────────────────── */
 .ways{margin-top:clamp(40px,5vw,60px);display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.ways.-two{grid-template-columns:repeat(2,1fr);}
 .way{background:var(--white);border:1px solid var(--line-soft);padding:clamp(28px,3.2vw,40px);
   display:flex;flex-direction:column;gap:22px;transition:box-shadow var(--t-fast),border-color var(--t-fast);}
 .way:hover{box-shadow:var(--shadow);border-color:var(--line);}
@@ -276,7 +283,7 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .ladder{margin-top:2px;background:var(--white);border:1px solid var(--line-soft);padding:clamp(28px,3.2vw,40px);}
 .ladder__h{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;}
 .ladder__h p{font-size:var(--fs-sm);color:var(--gray);line-height:1.5;max-width:58ch;}
-.lad{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.lad{margin-top:28px;display:grid;grid-template-columns:1fr;gap:2px;}
 .lad__col{background:var(--cream);padding:24px 22px;}
 .lad__t b{display:block;font-size:var(--fs-h4);font-weight:500;letter-spacing:var(--tr-head);}
 .lad__t span{display:block;margin-top:5px;font-size:var(--fs-xs);color:var(--gray);line-height:1.45;}
@@ -560,6 +567,31 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
 .foot__r span{font-size:var(--fs-sm);color:rgba(247,245,242,.6);}
 .foot__bot{display:flex;justify-content:space-between;gap:24px;padding-top:26px;font-size:var(--fs-xs);color:rgba(247,245,242,.35);}
 
+/* ── Квіз у модалці ─────────────────────────────────────── */
+.qz__fab{
+  position:fixed;right:24px;bottom:24px;z-index:95;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:15px 24px;border-radius:999px;white-space:nowrap;
+  background:var(--yellow);color:var(--navy);font-size:var(--fs-sm);font-weight:600;letter-spacing:.01em;
+  box-shadow:0 12px 30px rgba(49,55,70,.22);
+  transition:background var(--t-fast),transform var(--t-fast),box-shadow var(--t-fast);
+}
+.qz__fab svg{width:17px;height:17px;flex-shrink:0;}
+.qz__fab:hover{background:var(--yellow-d);transform:translateY(-2px);box-shadow:0 16px 36px rgba(49,55,70,.26);}
+.qz__fab:active{transform:none;}
+.qz{position:fixed;inset:0;z-index:210;display:none;align-items:center;justify-content:center;
+  padding:28px;background:rgba(28,31,40,.7);backdrop-filter:blur(6px);}
+.qz.is-on{display:flex;}
+.qz__box{position:relative;display:flex;flex-direction:column;width:min(460px,100%);height:min(780px,100%);
+  background:var(--cream);overflow:hidden;box-shadow:var(--shadow-l);}
+.qz__hd{height:46px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;
+  padding-left:18px;background:var(--navy-d);color:rgba(247,245,242,.72);
+  font-size:var(--fs-xs);letter-spacing:var(--tr-caps);text-transform:uppercase;}
+.qz__frame{width:100%;flex:1;min-height:0;border:0;display:block;background:var(--cream);}
+.qz__x{width:46px;height:46px;flex-shrink:0;color:var(--cream);font-size:15px;line-height:1;
+  display:flex;align-items:center;justify-content:center;transition:background var(--t-fast);}
+.qz__x:hover{background:rgba(247,245,242,.14);}
+
 /* ── Липка панель на мобільних ──────────────────────────── */
 .bar{
   position:fixed;left:0;right:0;bottom:0;z-index:90;display:none;gap:10px;
@@ -621,8 +653,11 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   :root{--pad-side:20px;}
   body{padding-bottom:74px;}
   .bar{display:flex;}
+  .qz__fab{right:14px;bottom:calc(80px + env(safe-area-inset-bottom));padding:13px 20px;}
+  .qz{padding:0;}
+  .qz__box{width:100%;height:100%;}
   .hero__in{padding:132px var(--pad-side) 78px;}
-  .hero__foot{flex-direction:column;align-items:stretch;gap:26px;}
+  .hero__foot{flex-direction:column;align-items:stretch;gap:20px;}
   .hero__cta{flex-direction:column;}
   .hero__cta .btn{justify-content:center;}
   .hero__geo{font-size:10px;}
@@ -653,8 +688,8 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   html{scroll-behavior:auto;}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
   [data-in],[data-in-kids] > *{opacity:1;transform:none;}
-  .hero__h1 .ln > span,.hero__sub,.hero__cta{transform:none;opacity:1;}
-  .rot,.rot__note{opacity:1;}
+  .hero__h1 .ln > span,.hero__cta{transform:none;opacity:1;}
+  .rot,.rot__note,.hero__switch{opacity:1;}
 }
 @media(max-width:900px){
   .loc{min-height:0;}
@@ -681,7 +716,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
       <a href="#plans">Планування</a>
       <a href="#faq">Питання</a>
     </nav>
-    <a href="tel:+380487887766" class="hdr__tel" onclick="trackPhone('header')">+380 (48) 788-77-66</a>
+    <a href="tel:+380487887766" class="hdr__tel" onclick="trackPhone('header')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.6 2.8a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.8 2z"/></svg>+380 (48) 788-77-66</a>
   </div>
 </header>
 
@@ -690,11 +725,6 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   <img class="hero__media" src="photos/hero-poster.jpg" alt="" fetchpriority="high" width="1280" height="720">
   <video class="hero__media" muted loop playsinline preload="none" poster="photos/hero-poster.jpg" data-video="intro-web.mp4" aria-hidden="true"></video>
   <div class="hero__in">
-    <div class="hero__tag" role="tablist" aria-label="Умови купівлі"><i></i>
-      <button type="button" class="is-on" data-rot-dot="0" role="tab">Знижка</button><em>·</em>
-      <button type="button" data-rot-dot="1" role="tab">Розтермінування</button><em>·</em>
-      <button type="button" data-rot-dot="2" role="tab">єОселя</button>
-    </div>
     <h1 class="hero__h1">
       <span class="ln"><span>Власна квартира</span></span>
     </h1>
@@ -708,8 +738,12 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
       <i>Без відсотків і комісій. Перший внесок від 20%, сума не змінюється до останнього платежу</i>
       <i>Державна програма: 3% або 7% річних залежно від категорії, строк до 20 років</i>
     </div>
+    <div class="hero__switch" role="tablist" aria-label="Умови купівлі">
+      <button type="button" class="is-on" data-rot-dot="0" role="tab">Знижка</button>
+      <button type="button" data-rot-dot="1" role="tab">Розтермінування</button>
+      <button type="button" data-rot-dot="2" role="tab">єОселя</button>
+    </div>
     <div class="hero__foot">
-      <p class="hero__sub">Малоповерховий комплекс біля моря з власною парковою зоною. Будинок №7 зданий, будинок №8 — IV кв. 2026. Підберемо квартиру і порахуємо всі три варіанти оплати.</p>
       <div class="hero__cta">
         <a href="#contact" class="btn -yellow">Отримати розрахунок <span class="arr"></span></a>
       </div>
@@ -724,11 +758,11 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
     <div class="about">
       <div class="about__txt" data-in>
         <span class="eyebrow">Про комплекс</span>
-        <h2 class="h2">Місто-парк за кілька хвилин <span class="em">від моря</span></h2>
+        <h2 class="h2">Місто-парк, <span class="em">де море поруч</span></h2>
         <p>«Парк Совіньйон» — це сучасна парк-резиденція, 75% території якої займає інфраструктура та благоустрій.</p>
         <p>Червона керамічна цегла, стелі 3 метри, панорамні вікна та індивідуальне газове опалення. <strong>Лише 6 квартир на поверсі</strong> — тому сусідів тут знають на ім'я, а не за номером дверей.</p>
         <p>На території вже працюють пілатес-студія Reforma, медична лабораторія Smartlab і поштомат «Нова Пошта». Дитячі майданчики, безкоштовна парковка біля дому та власна управляюча компанія забудовника.</p>
-        <p>У продажу дві черги: <strong>будинок №7</strong> уже зданий і заселений, <strong>будинок №8</strong> здається в IV кварталі 2026 року.</p>
+        <p>У продажу доступні квартири у <strong>зданому будинку</strong> та <strong>будинку на стадії будівництва</strong>.</p>
         <div class="about__cta">
           <a href="#terms" class="btn -olive">Подивитись умови купівлі <span class="arr"></span></a>
         </div>
@@ -737,7 +771,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
         <img src="photos/house7.webp" alt="Будинок №7 ЖК «Парк Совіньйон» серед зелені" loading="lazy" width="1046" height="1300">
         <div class="about__flag">
           <b>Будинок №7 зданий</b>
-          <span>Заселений і готовий до заїзду одразу. Будинок №8 — IV кв. 2026</span>
+          <span>Заселений і готовий до заїзду одразу. Будинок №8 — на стадії будівництва</span>
         </div>
       </div>
     </div>
@@ -777,7 +811,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
 <section class="sect -white" id="advantages">
   <div class="wrap">
     <div data-in>
-      <h2 class="h2 -oneline">Чому саме <span class="em">«Парк Совіньйон»</span></h2>
+      <h2 class="h2 -oneline">За що обирають <span class="em">«Парк Совіньйон»</span></h2>
       <p class="lead">Шість причин, які видно вже на першій екскурсії — і ще довго після заїзду.</p>
     </div>
     <div class="adv" data-in-kids>
@@ -793,7 +827,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
         </figure>
         <div class="card__txt">
           <h3 class="h4">Власний парк</h3>
-          <p>Понад тисяча рослин, ставки та прогулянкові алеї.</p>
+          <p>Понад тисяча рослин, ставки, зони для відпочинку та прогулянкові алеї.</p>
         </div>
       </article>
       <article class="card -big">
@@ -830,7 +864,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
         <figure><img src="photos/restaurant.webp" alt="Ресторан Sapori Sauvignon на території комплексу" loading="lazy" width="1200" height="984"></figure>
         <div class="card__txt">
           <h3 class="h4">Інфраструктура</h3>
-          <p>Ресторан, пілатес-студія, медична лабораторія та поштомат «Нова Пошта». Продуктовий супермаркет — за 100 метрів.</p>
+          <p>Ресторан, пілатес-студія, медична лабораторія та поштомат «Нова Пошта». Продуктовий супермаркет — за 100 метрів. Поруч аптека, школа, дитячий садок і СТО.</p>
         </div>
       </article>
       <article class="card">
@@ -864,7 +898,11 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   <div class="wrap">
     <div data-in>
       <span class="eyebrow">Умови купівлі</span>
-      <h2 class="h2 -oneline">Три <span class="em">фінансові пропозиції</span></h2>
+      <h2 class="h2 -oneline">Вигідні <span class="em">умови купівлі квартири</span></h2>
+      <div class="hswitch" data-hswitch role="tablist" aria-label="Оберіть будинок">
+        <button type="button" class="is-on" data-h="7" role="tab">Для зданого будинку</button>
+        <button type="button" data-h="8" role="tab">Для будинку на стадії будівництва</button>
+      </div>
     </div>
 
     <div class="ways" data-in-kids>
@@ -880,17 +918,19 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
 
       <article class="way">
         <div class="way__top"><span class="way__no">Пропозиція 2</span><span class="way__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8 14h.01M12 14h.01M16 14h.01"/></svg></span></div>
-        <div class="way__big">до 3 років<small>розтермінування без подорожчання</small></div>
+        <div class="way__big"><span data-h="7">до 2 років</span><span data-h="8" hidden>до 3 років</span><small>розтермінування без подорожчання</small></div>
         <ul>
-          <li>Перший внесок від 20% у будинку №8</li>
+          <li data-h="7">Перший внесок від 30%</li>
+          <li data-h="8" hidden>Перший внесок від 20%</li>
           <li>Без відсотків і комісій: сума не росте до останнього платежу</li>
           <li>Знижка залежить від розміру внеску та зберігається до закінчення виплат</li>
           <li>Графік платежів складаємо за вашими можливостями та бажанням</li>
         </ul>
-        <p class="way__note">У зданому будинку №7 — розтермінування до 2 років, перший внесок від 30%.</p>
+        <p class="way__note" data-h="7">Будинок зданий — заїжджати можна одразу після угоди.</p>
+        <p class="way__note" data-h="8" hidden>Плановий термін здачі — IV квартал 2026 року.</p>
       </article>
 
-      <article class="way">
+      <article class="way" data-h="7">
         <div class="way__top"><span class="way__no">Пропозиція 3</span><span class="way__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span></div>
         <div class="way__big">від 3%<small>річних за державною програмою єОселя</small></div>
         <ul>
@@ -908,7 +948,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
         <p>Розмір знижки залежить від будинку, розміру внеску і строку розтермінування. Нижче — сітка з прайсу відділу продажу: знижка в умовних одиницях на кожен квадратний метр. Скільки це у гривні саме для вашої квартири — порахує калькулятор.</p>
       </div>
       <div class="lad">
-        <div class="lad__col">
+        <div class="lad__col" data-h="7">
           <div class="lad__t"><b>Будинок №7</b><span>Зданий · мінімальний внесок 30% · розтермінування до 2 років</span></div>
           <div class="lad__rows">
             <div class="lad__hd"><span>Перший внесок</span><b>Знижка</b></div>
@@ -918,8 +958,8 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
             <div class="-max"><span>Оплата 100%</span><b>−120 у.о.</b></div>
           </div>
         </div>
-        <div class="lad__col">
-          <div class="lad__t"><b>Будинок №8</b><span>IV кв. 2026 · мінімальний внесок 20%</span></div>
+        <div class="lad__col" data-h="8" hidden>
+          <div class="lad__t"><b>Будинок №8</b><span>На стадії будівництва · мінімальний внесок 20%</span></div>
           <div class="lad__rows -two">
             <div class="lad__hd"><span>Перший внесок</span><b>2 роки</b><b>3 роки</b></div>
             <div><span>20%</span><b>−70 у.о.</b><b>−50 у.о.</b></div>
@@ -1024,7 +1064,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   <div class="wrap">
     <div data-in>
       <h2 class="h2">Оберіть свою <span class="em">квартиру</span></h2>
-      <p class="lead">Три типи планувань у двох будинках. Будинок №7 зданий — квартиру можна побачити наживо вже завтра, зокрема готову з ремонтом. Будинок №8 здається в IV кварталі 2026 — там доступні однокімнатні та найдовше розтермінування.</p>
+      <p class="lead">Три типи планувань у двох будинках. Будинок №7 зданий — квартиру можна побачити наживо вже завтра, зокрема готову з ремонтом. Будинок №8 — на стадії будівництва, там доступні однокімнатні та найдовше розтермінування.</p>
     </div>
     <div class="flats" data-in-kids>
       <article class="flat">
@@ -1039,7 +1079,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
             <div class="flat__area">43,2–49,1 м² · стелі 3 м</div>
           </div>
           <div class="flat__specs"><div><span class="xs">Вікна</span><b>5-камерні</b></div><div><span class="xs">Опалення</span><b>Індивідуальне газове</b></div><div><span class="xs">Внесок</span><b>від 20%</b></div></div>
-          <div class="flat__badges"><span class="tag -yellow">Розтермінування до 3 років</span><span class="tag -grey">Будинок №8 · IV кв. 2026</span></div>
+          <div class="flat__badges"><span class="tag -yellow">Розтермінування до 3 років</span><span class="tag -grey">Будинок №8 · на стадії будівництва</span></div>
         </div>
       </article>
       <article class="flat">
@@ -1087,7 +1127,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
       <div class="step"><b>01</b><div><h3 class="h4">Підбір і розрахунок</h3><p>Підбираємо квартиру під бюджет і склад сім'ї. Рахуємо всі три способи оплати — ви бачите різницю в цифрах.</p></div></div>
       <div class="step"><b>02</b><div><h3 class="h4">Перегляд і бронювання</h3><p>Показуємо квартиру наживо в зданому будинку №7. Фіксуємо обрану квартиру та її вартість.</p></div></div>
       <div class="step"><b>03</b><div><h3 class="h4">Оформлення</h3><p>Повна оплата або графік розтермінування — договір із забудовником. За єОселею: заявка через «Дію», документи від забудовника готуємо ми.</p></div></div>
-      <div class="step"><b>04</b><div><h3 class="h4">Ключі</h3><p>Будинок №7 — заїзд одразу після угоди. Будинок №8 — IV квартал 2026 року.</p></div></div>
+      <div class="step"><b>04</b><div><h3 class="h4">Ключі</h3><p>Будинок №7 — заїзд одразу після угоди. Будинок №8, що на стадії будівництва, — IV квартал 2026 року.</p></div></div>
     </div>
 
     <h2 class="h2" style="margin-top:clamp(64px,8vw,104px)" data-in>Банки-партнери <span class="em">єОселі</span></h2>
@@ -1122,7 +1162,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
       </details>
       <details name="faq">
         <summary>Чим відрізняються будинок №7 і будинок №8?<i></i></summary>
-        <p class="faq__a">Будинок №7 уже введений в експлуатацію: заїжджати можна одразу після угоди, квартиру видно наживо, і саме він проходить під єОселю як готове житло. У ньому залишились 2- та 3-кімнатні. Будинок №8 здається в IV кварталі 2026 — там є однокімнатні, нижчий перший внесок і найдовше розтермінування.</p>
+        <p class="faq__a">Будинок №7 уже введений в експлуатацію: заїжджати можна одразу після угоди, квартиру видно наживо, і саме він проходить під єОселю як готове житло. У ньому залишились 2- та 3-кімнатні. Будинок №8 — на стадії будівництва, здається в IV кварталі 2026 року; там є однокімнатні, нижчий перший внесок і найдовше розтермінування.</p>
       </details>
       <details name="faq">
         <summary>Чи можна поєднати знижку з єОселею?<i></i></summary>
@@ -1217,6 +1257,21 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   <a href="tel:+380487887766" class="btn -olive" onclick="trackPhone('mobilebar')">Подзвонити</a>
 </div>
 
+<!-- ══ КВІЗ (окрема сторінка у модалці) ══ -->
+<button type="button" class="qz__fab" data-qz-open>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+  Залишити заявку
+</button>
+<div class="qz" data-qz aria-hidden="true" role="dialog" aria-modal="true" aria-label="Підбір квартири">
+  <div class="qz__box">
+    <div class="qz__hd">
+      <span>Підбір квартири · 7 питань</span>
+      <button type="button" class="qz__x" data-qz-close aria-label="Закрити">✕</button>
+    </div>
+    <iframe class="qz__frame" data-qz-frame title="Підбір квартири — ЖК «Парк Совіньйон»" loading="lazy"></iframe>
+  </div>
+</div>
+
 <!-- ══ ЛАЙТБОКС ══ -->
 <div class="lb" id="lb" aria-hidden="true">
   <button class="x" aria-label="Закрити">✕</button>
@@ -1282,12 +1337,24 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   const play=()=>{if(still)return;clearInterval(timer);timer=setInterval(()=>{if(!paused)go(i+1);},6000);};
   dots.forEach((d,k)=>d.addEventListener('click',()=>{go(k);play();}));
   // на ховері зупиняємо — щоб фраза не змінилась, поки людина її читає
-  const foot=document.querySelector('.hero__tag');
+  const foot=document.querySelector('.hero__switch');
   [box,foot].forEach(el=>{if(!el)return;
     el.addEventListener('mouseenter',()=>paused=true);
     el.addEventListener('mouseleave',()=>paused=false);});
   document.addEventListener('visibilitychange',()=>{paused=document.hidden;});
   go(0);play();})();
+
+// Перемикач будинків у блоці умов: єОселя і строк розтермінування залежать від будинку
+(()=>{const sw=document.querySelector('[data-hswitch]');if(!sw)return;
+  const sect=document.getElementById('terms'),ways=sect.querySelector('.ways');
+  const apply=h=>{
+    sect.querySelectorAll('[data-h]').forEach(el=>{if(el.closest('[data-hswitch]'))return;
+      el.hidden=el.dataset.h!==h;});
+    ways.classList.toggle('-two',h==='8');           // без картки єОселі лишається дві колонки
+    sw.querySelectorAll('button').forEach(b=>b.classList.toggle('is-on',b.dataset.h===h));
+  };
+  sw.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>apply(b.dataset.h)));
+  apply('7');})();
 
 // Слайдер фото в картках переваг
 (()=>{document.querySelectorAll('[data-slider]').forEach(box=>{
@@ -1311,8 +1378,8 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   const FX=44.6;                    // курс перерахунку прайсу в гривню
   const CAP=6000000;                // максимальна сума кредиту за єОселею
   const UNITS=[
-    {t:'1-кімнатна',h:8,a:[43.2,49.1],ppm:1080,eo:false,ready:'IV кв. 2026'},
-    {t:'2-кімнатна',h:8,a:[64.9,70.4],ppm:1080,eo:false,ready:'IV кв. 2026'},
+    {t:'1-кімнатна',h:8,a:[43.2,49.1],ppm:1080,eo:false,ready:'на стадії будівництва'},
+    {t:'2-кімнатна',h:8,a:[64.9,70.4],ppm:1080,eo:false,ready:'на стадії будівництва'},
     {t:'2-кімнатна',h:7,a:[67.1,74.6],ppm:1110,eo:true, ready:'зданий'},
     {t:'3-кімнатна',h:7,a:[90.6,91.7],ppm:1110,eo:true, ready:'зданий'}
   ];
@@ -1438,13 +1505,44 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
   box.addEventListener('click',e=>{if(e.target===box)close();});
   addEventListener('keydown',e=>{if(!box.classList.contains('is-on'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(i-1);if(e.key==='ArrowRight')show(i+1);});})();
 
+var GA_ADS_ID='AW-16475671325',GA_CONV_LABEL='MgUsCKiYoJAcEJ2Wm7A9';
+var GPLUS_TOKEN='l0LVin9ZBjVVbShz-ggXPNXFwK_UF-WtLgizXpPHYfc',GPLUS_PARTNER_ID=21980,GPLUS_URL='https://crm.g-plus.app/api/actions';
+
+// Квіз: відкривається в модалці, лід приходить із iframe і йде в CRM шляхом лендингу
+(()=>{const box=document.querySelector('[data-qz]'),frame=document.querySelector('[data-qz-frame]');
+  if(!box||!frame)return;
+  const QUIZ='https://parksauvignon.github.io/ps-quiz/';
+  const open=()=>{
+    if(!frame.getAttribute('src'))frame.setAttribute('src',QUIZ+'?src=offers-landing');
+    box.classList.add('is-on');box.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    if(typeof gtag==='function')gtag('event','quiz_open',{place:'offers-landing'});};
+  const close=()=>{box.classList.remove('is-on');box.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';};
+  document.querySelectorAll('[data-qz-open]').forEach(b=>b.addEventListener('click',open));
+  document.querySelectorAll('[data-qz-close]').forEach(b=>b.addEventListener('click',close));
+  box.addEventListener('click',e=>{if(e.target===box)close();});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&box.classList.contains('is-on'))close();});
+
+  // Квіз не має власного токена CRM (свідомо) — заявку відправляємо звідси
+  addEventListener('message',e=>{
+    if(e.origin!=='https://parksauvignon.github.io')return;
+    const d=e.data;if(!d||d.type!=='ps-quiz-lead')return;
+    const params=new URLSearchParams({action:'partner-custom-form',token:GPLUS_TOKEN,partner_id:GPLUS_PARTNER_ID,
+      name:d.name||'',phone:d.phone||'',lang:'ua',
+      note:'Лендинг умови · квіз\n'+(d.note||''),adv_id:'offers-landing-quiz'});
+    fetch(GPLUS_URL,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:params.toString()}).catch(()=>{});
+    if(typeof fbq==='function')fbq('track','Lead',{content_name:'Квіз'});
+    if(typeof gtag==='function'){gtag('event','conversion',{send_to:GA_ADS_ID+'/'+GA_CONV_LABEL});
+      gtag('event','form_submit',{form_id:'quiz'});}
+  });})();
+
 // Телефон + трекінг
 window.formatPhone=function(input){let v=input.value.replace(/[^\d+]/g,'');if(!v.startsWith('+'))v='+'+v;if(!v.startsWith('+380'))v='+380'+v.replace(/^\+/,'').replace(/^380/,'');const d=v.slice(4).replace(/\D/g,'').slice(0,9);input.value='+380'+d;};
 window.trackPhone=function(place){if(typeof gtag==='function')gtag('event','phone_click',{place:place});if(typeof fbq==='function')fbq('track','Contact',{place:place});};
 
 // Відправка форми
-var GA_ADS_ID='AW-16475671325',GA_CONV_LABEL='MgUsCKiYoJAcEJ2Wm7A9';
-var GPLUS_TOKEN='l0LVin9ZBjVVbShz-ggXPNXFwK_UF-WtLgizXpPHYfc',GPLUS_PARTNER_ID=21980,GPLUS_URL='https://crm.g-plus.app/api/actions';
+
 window.submitForm=function(e,form){
   e.preventDefault();
   var btn=form.querySelector('[type=submit]');if(btn){btn.disabled=true;btn.textContent='Надсилаємо…';}
