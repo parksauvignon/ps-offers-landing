@@ -401,6 +401,14 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .fld:last-child{margin-bottom:0;}
 .fld__top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:14px;}
 .fld__top b{font-size:var(--fs-h4);font-weight:500;letter-spacing:var(--tr-head);}
+/* Вартість можна не тільки тягнути повзунком, а й вписати руками — як у калькуляторі банку */
+.fld__edit{display:inline-flex;align-items:baseline;gap:6px;}
+.fld__edit input{font:inherit;font-size:var(--fs-h4);font-weight:500;letter-spacing:var(--tr-head);
+  color:inherit;text-align:right;padding:5px 11px;border:1px solid var(--line);border-radius:8px;
+  background:var(--white);transition:border-color var(--t-fast),box-shadow var(--t-fast);}
+.fld__edit input:hover{border-color:var(--olive);}
+.fld__edit input:focus{outline:none;border-color:var(--olive);box-shadow:0 0 0 3px var(--olive-tint);}
+.fld__edit i{font-size:var(--fs-h4);font-weight:500;letter-spacing:var(--tr-head);}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:var(--line);outline:none;}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--olive);cursor:pointer;box-shadow:0 0 0 6px var(--olive-tint);transition:transform var(--t-fast);}
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12);}
@@ -1036,8 +1044,10 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
         </div>
 
         <div class="fld">
-          <div class="fld__top"><span class="caps">Вартість квартири</span><b data-area-l>3 321 853 грн</b></div>
-          <input type="range" data-area min="67.1" max="74.6" step="0.1" value="67.1" aria-label="Вартість квартири">
+          <div class="fld__top"><span class="caps">Вартість квартири</span>
+            <b class="fld__edit"><input type="text" inputmode="numeric" autocomplete="off" data-price aria-label="Вартість квартири, грн" title="Можна вписати свою вартість"><i>грн</i></b></div>
+          <input type="range" data-area min="67.1" max="74.6" step="0.1" value="67.1" aria-label="Площа квартири">
+          <p class="calc__note" data-price-note hidden>Власна вартість — квартири з такою ціною у вибраному типі немає. Пересуньте повзунок, щоб повернутись до наших цін.</p>
         </div>
 
         <div class="fld" data-fld="down" hidden>
@@ -1392,13 +1402,15 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   const fmt=n=>Math.round(n).toLocaleString('uk-UA').replace(/ /g,' ');
   const m2=n=>n.toFixed(1).replace('.',',');
 
+  const PMIN=1000000,PMAX=6000000;   // межі ручного вводу вартості, грн
   let mode='inst', u=2;
-  const area=$('[data-area]'),down=$('[data-down]'),term=$('[data-term]');
+  let custom=null;                   // вартість, вписана руками; null = ціна з повзунка
+  const area=$('[data-area]'),down=$('[data-down]'),term=$('[data-term]'),price=$('[data-price]');
   const maxTerm=h=>ITERMS[h][ITERMS[h].length-1];
   let iterm=maxTerm(UNITS[u].h),itermTouched=false;   // за замовчуванням — найдовший строк
 
   const setArea=reset=>{const U=UNITS[u];area.min=U.a[0];area.max=U.a[1];area.step=.1;
-    area.value=reset?U.a[0]:Math.min(Math.max(+area.value,U.a[0]),U.a[1]);};
+    area.value=reset?U.a[0]:Math.min(Math.max(+area.value,U.a[0]),U.a[1]);custom=null;};
   const setDown=()=>{const m=mode==='eo'?EO_DOWN:MINDOWN[UNITS[u].h];
     down.min=m;down.max=95;if(+down.value<m)down.value=m;};
   const yr=y=>y===1?'рік':(y<5?'роки':'років');
@@ -1420,9 +1432,16 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
       $$('[data-units] button').forEach(b=>b.classList.toggle('is-on',+b.dataset.u===u));
       setArea(true);}};
 
+  // Ширина поля вводу — під довжину числа, щоб «грн» не відлітало
+  const setPrice=v=>{price.value=fmt(v);price.size=price.value.length+1;};
+
   const calc=()=>{
-    const U=UNITS[u],A=+area.value,list=A*U.ppm*FX;
-    $('[data-area-l]').textContent=fmt(list)+' грн';
+    const U=UNITS[u];
+    // Вписана вартість має пріоритет; площа для сітки знижок виводиться з неї, тож
+    // знижка в у.о./м² лишається коректною і для ціни поза діапазоном наших квартир.
+    const list=custom!=null?custom:(+area.value)*U.ppm*FX, A=list/(U.ppm*FX);
+    if(document.activeElement!==price)setPrice(list);
+    $('[data-price-note]').hidden=custom==null;
     $('[data-unit-l]').textContent='Будинок №'+U.h+' · '+U.ready;
     $('[data-down-l]').textContent=(+down.value)+'%';
     $('[data-term-l]').textContent=(+term.value)+' років';
@@ -1487,7 +1506,26 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
     u=+b.dataset.u;setArea(true);setDown();setITerms();calc();}));
   $$('[data-rate]').forEach(b=>b.addEventListener('click',()=>{
     $$('[data-rate]').forEach(x=>x.classList.remove('is-on'));b.classList.add('is-on');calc();}));
-  [area,down,term].forEach(el=>el.addEventListener('input',calc));
+  [down,term].forEach(el=>el.addEventListener('input',calc));
+  // Повзунок повертає до наших цін і скидає вписану вартість
+  area.addEventListener('input',()=>{custom=null;calc();});
+
+  // Ручний ввід вартості. Якщо число потрапляє в діапазон вибраного типу квартир —
+  // підтягуємо повзунок і працюємо як завжди; якщо ні — лишаємо власну вартість.
+  // Межі округлюємо: 67,1 × 1110 × 45 у float дає 3 351 645,0000000005,
+  // і рівно та сама ціна з поля вважалась би «власною».
+  const applyPrice=v=>{const U=UNITS[u],lo=Math.round(U.a[0]*U.ppm*FX),hi=Math.round(U.a[1]*U.ppm*FX);
+    v=Math.min(Math.max(v,PMIN),PMAX);
+    if(v>=lo&&v<=hi){custom=null;area.value=(v/(U.ppm*FX)).toFixed(1);}else{custom=v;}
+    calc();return v;};
+  const digits=()=>+price.value.replace(/\D/g,'')||0;
+  price.addEventListener('focus',()=>{price.value=String(digits());price.size=price.value.length+1;price.select();});
+  price.addEventListener('input',()=>{price.size=Math.max(price.value.length,1)+1;
+    if(price.value.replace(/\D/g,''))applyPrice(digits());});
+  // На blur значення приводимо до меж і форматуємо — calc() у цей момент поле вже не чіпає
+  price.addEventListener('blur',()=>setPrice(applyPrice(digits())));
+  price.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();price.blur();}});
+
   setUnits();setArea();setDown();setITerms();calc();})();
 
 // Лайтбокс
