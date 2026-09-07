@@ -294,13 +294,11 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .lad__rows > div{background:var(--cream);display:grid;grid-template-columns:150px minmax(60px,1fr) 96px;
   align-items:baseline;gap:22px;padding:12px 0;}
 .lad__rows.-two > div{grid-template-columns:150px minmax(60px,1fr) 92px 92px;gap:18px;}
-/* Шкала знижки: 120 у.о. = вся ширина. Суцільна частина — знижка на довший строк,
-   світла добавка — скільки зверху дає коротший. Для зданого будинку --b немає, тож однотонна. */
+/* Шкала першого внеску: довжина смуги дорівнює відсотку зліва, 100% = вся ширина */
 .lad__bar{position:relative;display:block;height:7px;border-radius:999px;
   background:var(--line-soft);overflow:hidden;align-self:center;}
-.lad__bar::before,.lad__bar::after{content:'';position:absolute;top:0;bottom:0;left:0;border-radius:999px;}
-.lad__bar::before{width:var(--b,var(--a));background:rgba(153,159,79,.4);}
-.lad__bar::after{width:var(--a);background:var(--olive);}
+.lad__bar::after{content:'';position:absolute;top:0;bottom:0;left:0;border-radius:999px;
+  width:var(--a);background:var(--olive);}
 .lad__rows span{font-size:var(--fs-sm);color:var(--gray);}
 .lad__rows b{font-size:var(--fs-sm);font-weight:600;text-align:right;font-variant-numeric:tabular-nums;}
 .lad__hd{border-bottom:1px solid var(--line);}
@@ -309,11 +307,7 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .lad__rows > div.-max span,.lad__rows > div.-max b{color:var(--white);}
 .lad__rows > div.-max b.-span{grid-column:3 / -1;}
 .-max .lad__bar{background:rgba(255,255,255,.22);}
-.-max .lad__bar::before{background:rgba(255,255,255,.45);}
 .-max .lad__bar::after{background:var(--white);}
-.lad__axis{display:flex;justify-content:flex-end;align-items:baseline;}
-.lad__axis em{font-size:var(--fs-xs);font-weight:500;color:var(--gray);letter-spacing:var(--tr-caps);text-transform:uppercase;}
-.lad__legend{margin-top:16px;font-size:var(--fs-xs);color:var(--gray);line-height:1.5;}
 .ladder__aside p{font-size:var(--fs-sm);color:var(--gray);line-height:1.6;}
 .ladder__aside p + p{margin-top:14px;}
 .ladder__aside .btn{margin-top:22px;}
@@ -689,7 +683,6 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   .lad__rows > div{grid-template-columns:1fr 88px;gap:12px;}
   .lad__rows.-two > div{grid-template-columns:1fr 76px 76px;gap:10px;}
   .lad__rows > div.-max b.-span{grid-column:2 / -1;}
-  .lad__legend{display:none;}
   body{padding-bottom:74px;}
   .bar{display:flex;}
   .qz__fab{right:14px;bottom:calc(80px + env(safe-area-inset-bottom));padding:13px 20px;
@@ -1008,23 +1001,22 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
           <div class="lad__col" data-h="7">
             <div class="lad__t"><b>Зданий будинок</b><span>Мінімальний внесок 30% · розтермінування до 2 років</span></div>
             <div class="lad__rows">
-              <div class="lad__hd"><span>Перший внесок</span><i class="lad__axis"><em>120 у.о./м²</em></i><b>Знижка</b></div>
-              <div><span>30%</span><i class="lad__bar" style="--a:41.7%"></i><b>−50 у.о.</b></div>
-              <div><span>50%</span><i class="lad__bar" style="--a:58.3%"></i><b>−70 у.о.</b></div>
-              <div><span>70%</span><i class="lad__bar" style="--a:83.3%"></i><b>−100 у.о.</b></div>
+              <div class="lad__hd"><span>Перший внесок</span><i></i><b>Знижка</b></div>
+              <div><span>30%</span><i class="lad__bar" style="--a:30%"></i><b>−50 у.о.</b></div>
+              <div><span>50%</span><i class="lad__bar" style="--a:50%"></i><b>−70 у.о.</b></div>
+              <div><span>70%</span><i class="lad__bar" style="--a:70%"></i><b>−100 у.о.</b></div>
               <div class="-max"><span>Оплата 100%</span><i class="lad__bar" style="--a:100%"></i><b>−120 у.о.</b></div>
             </div>
           </div>
           <div class="lad__col" data-h="8" hidden>
             <div class="lad__t"><b>Будинок на стадії будівництва</b><span>Мінімальний внесок 20% · розтермінування до 3 років</span></div>
             <div class="lad__rows -two">
-              <div class="lad__hd"><span>Перший внесок</span><i class="lad__axis"><em>120 у.о./м²</em></i><b>2 роки</b><b>3 роки</b></div>
-              <div><span>20%</span><i class="lad__bar" style="--a:41.7%;--b:58.3%"></i><b>−70 у.о.</b><b>−50 у.о.</b></div>
-              <div><span>50%</span><i class="lad__bar" style="--a:58.3%;--b:75%"></i><b>−90 у.о.</b><b>−70 у.о.</b></div>
-              <div><span>70%</span><i class="lad__bar" style="--a:83.3%;--b:91.7%"></i><b>−110 у.о.</b><b>−100 у.о.</b></div>
+              <div class="lad__hd"><span>Перший внесок</span><i></i><b>2 роки</b><b>3 роки</b></div>
+              <div><span>20%</span><i class="lad__bar" style="--a:20%"></i><b>−70 у.о.</b><b>−50 у.о.</b></div>
+              <div><span>50%</span><i class="lad__bar" style="--a:50%"></i><b>−90 у.о.</b><b>−70 у.о.</b></div>
+              <div><span>70%</span><i class="lad__bar" style="--a:70%"></i><b>−110 у.о.</b><b>−100 у.о.</b></div>
               <div class="-max"><span>Оплата 100%</span><i class="lad__bar" style="--a:100%"></i><b class="-span">−120 у.о.</b></div>
             </div>
-            <p class="lad__legend">Світліша частина смуги — наскільки більшу знижку дає строк 2 роки.</p>
           </div>
         </div>
         <aside class="ladder__aside">
