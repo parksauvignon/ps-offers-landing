@@ -602,12 +602,14 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
 .qz__fab:active{transform:none;}
 body.qz-open .qz__fab{background:var(--yellow-d);}
 /* Панель не перекриває сторінку: живе в куті, без затемнення, розкривається з кнопки. */
-.qz{position:fixed;right:24px;bottom:86px;z-index:96;display:none;}
+.qz{position:fixed;right:24px;bottom:86px;z-index:120;display:none;}
 .qz.is-on{display:block;}
 .qz__box{position:relative;display:flex;flex-direction:column;
-  width:min(380px,calc(100vw - 32px));height:min(560px,calc(100vh - 130px));
-  height:min(560px,calc(100dvh - 130px));
+  width:min(380px,calc(100vw - 32px));
+  height:var(--qz-h,min(560px,calc(100vh - 130px)));
+  height:var(--qz-h,min(560px,calc(100dvh - 130px)));
   background:var(--cream);overflow:hidden;border-radius:14px;
+  transition:height .3s cubic-bezier(.2,.7,.2,1);
   box-shadow:0 26px 70px rgba(28,31,40,.3);
   transform-origin:right bottom;animation:qzin .34s cubic-bezier(.2,.7,.2,1) both;}
 @keyframes qzin{from{opacity:0;transform:translateY(14px) scale(.96);}to{opacity:1;transform:none;}}
@@ -689,11 +691,11 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   .qz__fab{right:14px;bottom:calc(80px + env(safe-area-inset-bottom));padding:13px 20px;
     opacity:0;pointer-events:none;transition:opacity var(--t-base);}
   body.is-scrolled .qz__fab{opacity:1;pointer-events:auto;}
-  /* Панель — майже на весь екран: у 500 px останній крок із формою не вміщався,
-     а мобільний Chrome рахує 100vh по великому вікну (без адресного рядка),
-     тому панель бувала вищою за видиму область і «не прокручувалась». */
-  .qz{right:12px;left:12px;top:12px;bottom:calc(12px + env(safe-area-inset-bottom));}
-  .qz__box{width:100%;height:100%;}
+  /* Панель притиснута до низу і росте рівно під вміст (висоту шле сам квіз).
+     Фіксовані 500 px обрізали останній крок, а розтяг на весь екран лишав
+     порожню білу площу під кнопкою і ховав ✕ під шапкою сайту. */
+  .qz{right:12px;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));}
+  .qz__box{width:100%;height:var(--qz-h,min(520px,calc(100dvh - 150px)));}
   /* Поки квіз відкритий, сторінка під ним не крутиться, а власні панелі не заважають */
   html.qz-open,body.qz-open{overflow:hidden;overscroll-behavior:none;}
   body.qz-open .qz__fab{opacity:0;pointer-events:none;}
@@ -1614,7 +1616,7 @@ var GPLUS_TOKEN='l0LVin9ZBjVVbShz-ggXPNXFwK_UF-WtLgizXpPHYfc',GPLUS_PARTNER_ID=2
   if(!box||!frame)return;
   const QUIZ='https://parksauvignon.github.io/ps-quiz/';
   const open=()=>{
-    if(!frame.getAttribute('src'))frame.setAttribute('src',QUIZ+'?embed=1&v=3&src=offers-landing');
+    if(!frame.getAttribute('src'))frame.setAttribute('src',QUIZ+'?embed=1&v=4&src=offers-landing');
     box.classList.add('is-on');box.setAttribute('aria-hidden','false');
     document.body.classList.add('qz-open');document.documentElement.classList.add('qz-open');
     if(typeof gtag==='function')gtag('event','quiz_open',{place:'offers-landing'});};
@@ -1625,10 +1627,22 @@ var GPLUS_TOKEN='l0LVin9ZBjVVbShz-ggXPNXFwK_UF-WtLgizXpPHYfc',GPLUS_PARTNER_ID=2
   box.addEventListener('click',e=>{if(e.target===box)close();});
   addEventListener('keydown',e=>{if(e.key==='Escape'&&box.classList.contains('is-on'))close();});
 
+  // Панель росте під вміст: квіз шле свою висоту, бо крізь cross-origin iframe
+  // її не виміряти. Стеля — щоб верх панелі з хрестиком не пірнав під шапку сайту.
+  const HD=42;                                   // висота власної шапки панелі
+  const fit=h=>{const hdr=document.querySelector('.hdr');
+    const top=(hdr?hdr.offsetHeight:0)+12;
+    const cap=Math.max(300,innerHeight-top-(innerWidth<=720?24:98));
+    box.style.setProperty('--qz-h',Math.round(Math.min(h+HD,cap))+'px');};
+  let lastH=0;
+  addEventListener('resize',()=>{if(lastH)fit(lastH);});
+
   // Квіз не має власного токена CRM (свідомо) — заявку відправляємо звідси
   addEventListener('message',e=>{
     if(e.origin!=='https://parksauvignon.github.io')return;
-    const d=e.data;if(!d||d.type!=='ps-quiz-lead')return;
+    const d=e.data;if(!d)return;
+    if(d.type==='ps-quiz-height'&&+d.h>0){lastH=+d.h;fit(lastH);return;}
+    if(d.type!=='ps-quiz-lead')return;
     const params=new URLSearchParams({action:'partner-custom-form',token:GPLUS_TOKEN,partner_id:GPLUS_PARTNER_ID,
       name:d.name||'',phone:d.phone||'',lang:'ua',
       note:'Лендинг умови · квіз\n'+(d.note||''),adv_id:'offers-landing-quiz'});
