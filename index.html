@@ -1070,13 +1070,13 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
           <div class="calc__sum"><span data-sum>0</span><i data-sum-u>грн</i></div>
           <div class="calc__save" data-save hidden></div>
           <div class="calc__rows" data-rows></div>
-          <p class="calc__cap" data-cap hidden>Максимальна сума кредиту за єОселею — 6 000 000 ₴. Різницю потрібно внести як перший внесок.</p>
+          <p class="calc__cap" data-cap hidden>За єОселею кредитують нерухомість вартістю до 6 000 000 ₴. Різницю потрібно внести власними коштами.</p>
         </div>
         <a href="#contact" class="btn -yellow -full">Отримати точний розрахунок <span class="arr"></span></a>
       </div>
     </div>
 
-    <p class="foot-note" data-in>Розрахунок орієнтовний. Ціни прайсу забудовника вказані в умовних одиницях, розрахунок у гривні — за курсом банку «Восток» на день оплати, тому гривневі суми тут приблизні. Розтермінування — без відсотків і комісій. За єОселею показано ануїтетний платіж: пільгова ставка діє перші 10 років, далі 6% або 10% річних; розрахунок не враховує разову комісію банку 1% та страхування. Точні умови надають відділ продажу і банк.</p>
+    <p class="foot-note" data-in>Розрахунок орієнтовний. Ціни прайсу забудовника вказані в умовних одиницях, розрахунок у гривні — за курсом банку «Восток» на день оплати, тому гривневі суми тут приблизні. Розтермінування — без відсотків і комісій. За єОселею показано класичний (диференційований) графік — той самий, що в калькуляторі Ощадбанку: тіло кредиту рівними частинами, відсотки на залишок, тому платіж щомісяця зменшується. Пільгова ставка діє перші 10 років, з 11-го — 6% або 10% річних, через що платіж разово підвищується і далі знову зменшується. Разова комісія 1% врахована в загальних витратах; страхування, оцінка та нотаріус — ні. Банк рахує відсотки за календарними днями, тому його цифри можуть відрізнятися приблизно на 1%. Точні умови надають відділ продажу і банк.</p>
   </div>
 </section>
 
@@ -1175,7 +1175,7 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
       </details>
       <details name="faq">
         <summary>Який мінімальний перший внесок?<i></i></summary>
-        <p class="faq__a">У будинку №8 — від 20%, строк розтермінування до 3 років. У зданому будинку №7 — від 30%, строк розтермінування до 2 років. За програмою єОселя перший внесок — від 10%.</p>
+        <p class="faq__a">У будинку на стадії будівництва — від 20%, строк розтермінування до 3 років. У зданому будинку — від 30%, строк розтермінування до 2 років. За програмою єОселя перший внесок — від 10%.</p>
       </details>
       <details name="faq">
         <summary>Чи можна поєднати знижку з єОселею?<i></i></summary>
@@ -1381,6 +1381,7 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   ];
   const MINDOWN={7:30,8:20};                 // мінімальний перший внесок у розтермінуванні, %
   const EO_DOWN=10;                          // мінімальний внесок за єОселею
+  const COMM=0.01;                           // разова комісія банку за надання кредиту
   const ITERMS ={7:[1,2],8:[1,2,3]};         // доступні строки розтермінування, років
   // Знижка з прайсу, у.о. за м². Сходинки за розміром першого внеску.
   const disc=(h,d,y)=>{ if(d>=100)return 120;
@@ -1390,7 +1391,6 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
 
   const fmt=n=>Math.round(n).toLocaleString('uk-UA').replace(/ /g,' ');
   const m2=n=>n.toFixed(1).replace('.',',');
-  const pay=(L,pct,n)=>{const i=pct/100/12;return L?L*i*Math.pow(1+i,n)/(Math.pow(1+i,n)-1):0;};
 
   let mode='inst', u=2;
   const area=$('[data-area]'),down=$('[data-down]'),term=$('[data-term]');
@@ -1452,22 +1452,29 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
     }
 
     if(mode==='eo'){
+      // Класичний (диференційований) графік — саме так рахує калькулятор Ощадбанку:
+      // тіло кредиту рівними частинами, відсотки нараховуються на залишок,
+      // тому платіж найбільший на старті й далі зменшується. Ануїтет давав −17%.
       const dp=+down.value, y=+term.value;
       const rb=r.querySelector('[data-rate].is-on')||r.querySelector('[data-rate]'),pct=+rb.dataset.rate,pct2=pct===3?6:10;
-      const want=list*(1-dp/100), loan=Math.min(want,CAP), n=y*12;
-      const m1=pay(loan,pct,n), k=Math.min(120,n), i1=pct/100/12;
-      const bal=k<n?loan*Math.pow(1+i1,k)-m1*(Math.pow(1+i1,k)-1)/i1:0;
-      const m2p=k<n?pay(bal,pct2,n-k):0;
-      const total=m1*k+m2p*Math.max(0,n-k)+(list-loan);
-      $('[data-out-cap]').textContent='Платіж перші 10 років';
-      $('[data-sum]').textContent=fmt(m1);
+      const base=Math.min(list,CAP);                 // ліміт програми — на вартість нерухомості
+      const loan=base*(1-dp/100), n=y*12, body=loan/n;
+      const i1=pct/100/12, i2=pct2/100/12, k=Math.min(120,n);  // пільгова ставка — перші 10 років
+      let int=0;for(let m=1;m<=n;m++)int+=(loan-(m-1)*body)*(m<=k?i1:i2);
+      const first=body+loan*i1;                      // найбільший платіж — перший
+      const last=body+body*(n>k?i2:i1);              // найменший — останній
+      const comm=loan*COMM, costs=int+comm, all=(list-loan)+loan+costs;
+      $('[data-out-cap]').textContent='Перший платіж';
+      $('[data-sum]').textContent=fmt(first);
       $('[data-sum-u]').textContent='грн / міс';
+      save.hidden=false;save.textContent='Класичний графік · платіж зменшується';
       rows.innerHTML=
-        row('Платіж з 11 року ('+pct2+'%)', fmt(m2p)+' грн')+
+        row('Останній платіж', fmt(last)+' грн')+
         row('Перший внесок', fmt(list-loan)+' грн')+
         row('Сума кредиту', fmt(loan)+' грн')+
-        row('Загальна виплата', fmt(total)+' грн');
-      cap.hidden = want<=CAP;
+        row('Загальні витрати за кредитом', fmt(costs)+' грн')+
+        row('Разом за квартиру', fmt(all)+' грн');
+      cap.hidden = list<=CAP;
     }
   };
   const row=(a,b)=>'<div><span>'+a+'</span><b>'+b+'</b></div>';
