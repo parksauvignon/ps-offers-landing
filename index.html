@@ -1033,14 +1033,13 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
         </div>
 
         <div class="fld">
-          <div class="fld__top"><span class="caps">Квартира</span><b data-unit-l>Будинок №7 · зданий</b></div>
+          <div class="fld__top"><span class="caps">Квартира</span><b data-unit-l>У зданому будинку</b></div>
           <div class="chips" data-units>
-            <button type="button" data-u="0">1-кімнатна<i> · №8</i></button>
-            <button type="button" data-u="1">2-кімнатна<i> · №8</i></button>
-            <button type="button" class="is-on" data-u="2">2-кімнатна<i> · №7</i></button>
-            <button type="button" data-u="3">3-кімнатна<i> · №7</i></button>
+            <button type="button" data-u="0">1-кімнатна</button>
+            <button type="button" data-u="1">2-кімнатна<i> · будується</i></button>
+            <button type="button" class="is-on" data-u="2">2-кімнатна<i> · зданий</i></button>
+            <button type="button" data-u="3">3-кімнатна</button>
           </div>
-          <p class="calc__note" data-eo-note hidden>За програмою єОселя доступні квартири у зданому будинку №7.</p>
         </div>
 
         <div class="fld">
@@ -1384,10 +1383,10 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   const FX=45;                      // курс перерахунку прайсу в гривню (офіційний НБУ)
   const CAP=6000000;                // максимальна сума кредиту за єОселею
   const UNITS=[
-    {t:'1-кімнатна',h:8,a:[43.2,49.1],ppm:1080,eo:false,ready:'на стадії будівництва'},
-    {t:'2-кімнатна',h:8,a:[64.9,70.4],ppm:1080,eo:false,ready:'на стадії будівництва'},
-    {t:'2-кімнатна',h:7,a:[67.1,74.6],ppm:1110,eo:true, ready:'зданий'},
-    {t:'3-кімнатна',h:7,a:[90.6,91.7],ppm:1110,eo:true, ready:'зданий'}
+    {t:'1-кімнатна',h:8,a:[43.2,49.1],ppm:1080,eo:false,where:'У будинку на стадії будівництва'},
+    {t:'2-кімнатна',h:8,a:[64.9,70.4],ppm:1080,eo:false,where:'У будинку на стадії будівництва'},
+    {t:'2-кімнатна',h:7,a:[67.1,74.6],ppm:1110,eo:true, where:'У зданому будинку'},
+    {t:'3-кімнатна',h:7,a:[90.6,91.7],ppm:1110,eo:true, where:'У зданому будинку'}
   ];
   const MINDOWN={7:30,8:20};                 // мінімальний перший внесок у розтермінуванні, %
   const EO_DOWN=10;                          // мінімальний внесок за єОселею
@@ -1427,7 +1426,6 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   // єОселя проходить лише на зданий будинок №7 — решту чипсів ховаємо, а не блокуємо
   const setUnits=()=>{const eo=mode==='eo';
     $$('[data-units] button').forEach(b=>{b.hidden=eo&&!UNITS[+b.dataset.u].eo;});
-    $('[data-eo-note]').hidden=!eo;
     if(eo&&!UNITS[u].eo){u=UNITS.findIndex(x=>x.eo);
       $$('[data-units] button').forEach(b=>b.classList.toggle('is-on',+b.dataset.u===u));
       setArea(true);}};
@@ -1442,7 +1440,7 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
     const list=custom!=null?custom:(+area.value)*U.ppm*FX, A=list/(U.ppm*FX);
     if(document.activeElement!==price)setPrice(list);
     $('[data-price-note]').hidden=custom==null;
-    $('[data-unit-l]').textContent='Будинок №'+U.h+' · '+U.ready;
+    $('[data-unit-l]').textContent=U.where;
     $('[data-down-l]').textContent=(+down.value)+'%';
     $('[data-term-l]').textContent=(+term.value)+' років';
 
