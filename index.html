@@ -311,6 +311,8 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .-max .lad__bar{background:rgba(255,255,255,.22);}
 .-max .lad__bar::before{background:rgba(255,255,255,.45);}
 .-max .lad__bar::after{background:var(--white);}
+.lad__axis{display:flex;justify-content:flex-end;align-items:baseline;}
+.lad__axis em{font-size:var(--fs-xs);font-weight:500;color:var(--gray);letter-spacing:var(--tr-caps);text-transform:uppercase;}
 .lad__legend{margin-top:16px;font-size:var(--fs-xs);color:var(--gray);line-height:1.5;}
 .ladder__aside p{font-size:var(--fs-sm);color:var(--gray);line-height:1.6;}
 .ladder__aside p + p{margin-top:14px;}
@@ -1006,7 +1008,7 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
           <div class="lad__col" data-h="7">
             <div class="lad__t"><b>Зданий будинок</b><span>Мінімальний внесок 30% · розтермінування до 2 років</span></div>
             <div class="lad__rows">
-              <div class="lad__hd"><span>Перший внесок</span><i></i><b>Знижка</b></div>
+              <div class="lad__hd"><span>Перший внесок</span><i class="lad__axis"><em>120 у.о./м²</em></i><b>Знижка</b></div>
               <div><span>30%</span><i class="lad__bar" style="--a:41.7%"></i><b>−50 у.о.</b></div>
               <div><span>50%</span><i class="lad__bar" style="--a:58.3%"></i><b>−70 у.о.</b></div>
               <div><span>70%</span><i class="lad__bar" style="--a:83.3%"></i><b>−100 у.о.</b></div>
@@ -1016,18 +1018,17 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
           <div class="lad__col" data-h="8" hidden>
             <div class="lad__t"><b>Будинок на стадії будівництва</b><span>Мінімальний внесок 20% · розтермінування до 3 років</span></div>
             <div class="lad__rows -two">
-              <div class="lad__hd"><span>Перший внесок</span><i></i><b>2 роки</b><b>3 роки</b></div>
+              <div class="lad__hd"><span>Перший внесок</span><i class="lad__axis"><em>120 у.о./м²</em></i><b>2 роки</b><b>3 роки</b></div>
               <div><span>20%</span><i class="lad__bar" style="--a:41.7%;--b:58.3%"></i><b>−70 у.о.</b><b>−50 у.о.</b></div>
               <div><span>50%</span><i class="lad__bar" style="--a:58.3%;--b:75%"></i><b>−90 у.о.</b><b>−70 у.о.</b></div>
               <div><span>70%</span><i class="lad__bar" style="--a:83.3%;--b:91.7%"></i><b>−110 у.о.</b><b>−100 у.о.</b></div>
               <div class="-max"><span>Оплата 100%</span><i class="lad__bar" style="--a:100%"></i><b class="-span">−120 у.о.</b></div>
             </div>
-            <p class="lad__legend">Світліша частина шкали — наскільки більшу знижку дає коротший строк.</p>
+            <p class="lad__legend">Світліша частина смуги — наскільки більшу знижку дає строк 2 роки.</p>
           </div>
         </div>
         <aside class="ladder__aside">
           <p>Розмір знижки залежить від будинку, розміру внеску і строку розтермінування. Коротший строк дає більшу знижку.</p>
-          <p>Сітка — з прайсу відділу продажу: знижка в умовних одиницях на кожен квадратний метр. Скільки це у гривні саме для вашої квартири — порахує калькулятор.</p>
           <a href="#calc" class="btn -line">Порахувати мою квартиру <span class="arr"></span></a>
           <p class="ladder__fine">Актуальність умов уточнюйте у менеджера.</p>
         </aside>
