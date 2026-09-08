@@ -770,7 +770,7 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
 <!-- ══ 1. ПЕРШИЙ ЕКРАН ══ -->
 <section class="hero" id="top">
   <img class="hero__media" src="photos/hero-poster.jpg" alt="" fetchpriority="high" width="1280" height="720">
-  <video class="hero__media" muted loop playsinline preload="none" poster="photos/hero-poster.jpg" data-video="intro-web.mp4" aria-hidden="true"></video>
+  <video class="hero__media" muted loop playsinline preload="none" poster="photos/hero-poster.jpg" data-video="intro-hd.mp4" data-video-sm="intro-sm.mp4" aria-hidden="true"></video>
   <div class="hero__in">
     <h1 class="hero__h1">
       <span class="ln"><span>Власна квартира</span></span>
@@ -1349,7 +1349,9 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
 (()=>{const v=document.querySelector('[data-video]');if(!v)return;
   const start=()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     const c=navigator.connection;if(c&&(c.saveData||/2g/.test(c.effectiveType||'')))return;
-    v.src=v.dataset.video;
+    // Телефону віддаємо 960×540, десктопу 1280×720: на маленькому екрані більша
+    // роздільність не видно, а трафік вона з'їдає
+    v.src=(innerWidth<=900&&v.dataset.videoSm)?v.dataset.videoSm:v.dataset.video;
     v.addEventListener('playing',()=>v.classList.add('is-on'),{once:true});
     v.play().catch(()=>{});};
   if(document.readyState==='complete')setTimeout(start,400);else addEventListener('load',()=>setTimeout(start,400));})();
