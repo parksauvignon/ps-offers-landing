@@ -19,6 +19,11 @@
 <!-- ══ Meta Pixel ══ -->
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','3145327359033923');fbq('track','PageView');</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3145327359033923&ev=PageView&noscript=1"/></noscript>
+<!-- ══ Binotel (той самий widgetHash, що на старому лендингу) ══ -->
+<script>(function(d,w,s){var widgetHash='mjdumfyw836m13xzuqlw',ctw=d.createElement(s);ctw.type='text/javascript';ctw.async=true;
+ctw.src='//widgets.binotel.com/calltracking/widgets/'+widgetHash+'.js';
+var sn=d.getElementsByTagName(s)[0];sn.parentNode.insertBefore(ctw,sn);})(document,window,'script');</script>
+
 <!-- ══ Google Ads + GA4 ══ -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16475671325"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-16475671325');gtag('config','G-QR0Z5S479K');</script>
@@ -268,11 +273,11 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .way.-hi .way__ic{background:rgba(247,245,242,.18);color:var(--white);}
 .way__ic svg{width:20px;height:20px;}
 /* Позначка строку акції — жовта пігулка, однакова на першому екрані і в картці */
-.til{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;
+.til{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;
+  padding:4px 12px 4px calc(12px + .06em);
   background:var(--yellow);color:var(--navy);font-size:var(--fs-xs);font-weight:600;
   letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;vertical-align:baseline;
   position:relative;top:-1px;}
-.til::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--navy);opacity:.45;}
 .way .til{align-self:flex-start;}
 .way__big{font-size:var(--fs-h2);font-weight:500;line-height:1.02;letter-spacing:var(--tr-display);color:var(--navy);}
 .way.-hi .way__big{color:var(--white);}
@@ -711,8 +716,7 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   .hero__foot{flex-direction:column;align-items:stretch;gap:18px;}
   /* 8,61 — виміряна ширина «ВЛАСНА КВАРТИРА» у кеглях; 10,6vw−4px гарантує один рядок від 320px */
   .hero__h1{font-size:min(calc(10.6vw - 4px), var(--fs-display));}
-  .til{font-size:10px;padding:3px 9px;gap:5px;letter-spacing:.05em;}
-  .til::before{width:4px;height:4px;}
+  .til{font-size:10px;padding:3px 10px 3px calc(10px + .05em);letter-spacing:.05em;}
   .hero__switch{flex-wrap:nowrap;gap:6px;}
   .hero__switch button{padding:8px 11px;font-size:10px;letter-spacing:.08em;}
   .hero__cta{flex-direction:column;}
@@ -1667,7 +1671,9 @@ var GPLUS_TOKEN='l0LVin9ZBjVVbShz-ggXPNXFwK_UF-WtLgizXpPHYfc',GPLUS_PARTNER_ID=2
 
 // Телефон + трекінг
 window.formatPhone=function(input){let v=input.value.replace(/[^\d+]/g,'');if(!v.startsWith('+'))v='+'+v;if(!v.startsWith('+380'))v='+380'+v.replace(/^\+/,'').replace(/^380/,'');const d=v.slice(4).replace(/\D/g,'').slice(0,9);input.value='+380'+d;};
-window.trackPhone=function(place){if(typeof gtag==='function')gtag('event','phone_click',{place:place});if(typeof fbq==='function')fbq('track','Contact',{place:place});};
+// event_category/event_label повторюють старий лендинг — інакше наявні звіти GA4
+// після заміни перестануть бачити ці кліки. place лишаємо як додатковий параметр.
+window.trackPhone=function(place){if(typeof gtag==='function')gtag('event','phone_click',{event_category:'contact',event_label:place,place:place});if(typeof fbq==='function')fbq('track','Contact',{place:place});};
 
 // Відправка форми
 
