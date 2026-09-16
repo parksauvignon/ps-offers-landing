@@ -227,7 +227,7 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
   background:rgba(247,245,242,.14);color:rgba(247,245,242,.82);backdrop-filter:blur(10px);
   transition:background var(--t-fast),color var(--t-fast);}
 .hero__switch button:hover{background:rgba(247,245,242,.24);color:var(--cream);}
-.hero__switch button.is-on{background:var(--yellow);color:var(--navy);font-weight:600;}
+.hero__switch button.is-on{background:rgba(247,245,242,.42);color:var(--white);font-weight:600;}
 
 /* Всі фрази лежать в одній комірці гріда: контейнер бере висоту найдовшої,
    тому при зміні фрази верстка не стрибає — і на мобільному теж. */
@@ -238,8 +238,8 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
   transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1);}
 .rot > i.is-on{opacity:1;transform:none;}
 /* Підписи так само стоять в одній комірці гріда — висота блока не змінюється. */
-.rot__note{display:grid;margin-top:clamp(12px,1.3vw,18px);max-width:50ch;
-  font-size:var(--fs-sm);line-height:1.5;color:var(--cream);
+.rot__note{display:grid;margin-top:clamp(12px,1.3vw,18px);max-width:62ch;
+  font-size:var(--fs-lead);line-height:var(--lh-body);color:var(--cream);
   opacity:0;animation:fade .9s cubic-bezier(.2,.7,.2,1) .46s forwards;}
 .rot__note > i{grid-area:1/1;font-style:normal;opacity:0;transition:opacity .3s;}
 .rot__note > i.is-on{opacity:1;}
@@ -268,10 +268,11 @@ button{font:inherit;border:0;background:0;cursor:pointer;color:inherit;}
 .way.-hi .way__ic{background:rgba(247,245,242,.18);color:var(--white);}
 .way__ic svg{width:20px;height:20px;}
 /* Позначка строку акції — жовта пігулка, однакова на першому екрані і в картці */
-.til{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;
+.til{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;
   background:var(--yellow);color:var(--navy);font-size:var(--fs-xs);font-weight:600;
-  letter-spacing:var(--tr-caps);text-transform:uppercase;white-space:nowrap;vertical-align:middle;}
-.til::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--navy);opacity:.45;}
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;vertical-align:baseline;
+  position:relative;top:-1px;}
+.til::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--navy);opacity:.45;}
 .way .til{align-self:flex-start;}
 .way__big{font-size:var(--fs-h2);font-weight:500;line-height:1.02;letter-spacing:var(--tr-display);color:var(--navy);}
 .way.-hi .way__big{color:var(--white);}
@@ -658,7 +659,7 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   .step p,
   .form__sub,
   .loc__list b,.loc__list p{font-size:16px;}
-  .xs,.foot-note,.calc__cap,  .rot__note{font-size:18px;}
+  .xs,.foot-note,.calc__cap{font-size:18px;}
 }
 
 /* ── Адаптив ────────────────────────────────────────────── */
@@ -710,6 +711,8 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   .hero__foot{flex-direction:column;align-items:stretch;gap:18px;}
   /* 8,61 — виміряна ширина «ВЛАСНА КВАРТИРА» у кеглях; 10,6vw−4px гарантує один рядок від 320px */
   .hero__h1{font-size:min(calc(10.6vw - 4px), var(--fs-display));}
+  .til{font-size:10px;padding:3px 9px;gap:5px;letter-spacing:.05em;}
+  .til::before{width:4px;height:4px;}
   .hero__switch{flex-wrap:nowrap;gap:6px;}
   .hero__switch button{padding:8px 11px;font-size:10px;letter-spacing:.08em;}
   .hero__cta{flex-direction:column;}
@@ -787,7 +790,7 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
       <i>від 3% річних<br>за програмою єОселя</i>
     </div>
     <div class="rot__note" data-rot-note>
-      <i class="is-on">При повній оплаті — максимальна знижка від прайсу забудовника. <b class="til">лише до 14 жовтня</b></i>
+      <i class="is-on">При повній оплаті — максимальна знижка від прайсу <b class="til">лише до 14 жовтня</b></i>
       <i>Без відсотків і комісій. Перший внесок від 20%, сума не змінюється до останнього платежу</i>
       <i>Державна програма: 3% або 7% річних залежно від категорії, строк до 20 років</i>
     </div>
@@ -1029,9 +1032,9 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
             <div class="lad__t"><b>Будинок на стадії будівництва</b><span>Мінімальний внесок 20% · розтермінування до 3 років</span></div>
             <div class="lad__rows -two">
               <div class="lad__hd"><span>Перший внесок</span><i></i><b>2 роки</b><b>3 роки</b></div>
-              <div><span>20%</span><i class="lad__bar" style="--a:20%"></i><b>−70 у.о.</b><b>−50 у.о.</b></div>
-              <div><span>50%</span><i class="lad__bar" style="--a:50%"></i><b>−90 у.о.</b><b>−70 у.о.</b></div>
-              <div><span>70%</span><i class="lad__bar" style="--a:70%"></i><b>−110 у.о.</b><b>−100 у.о.</b></div>
+              <div><span>20%</span><i class="lad__bar" style="--a:20%"></i><b>−80 у.о.</b><b>−60 у.о.</b></div>
+              <div><span>50%</span><i class="lad__bar" style="--a:50%"></i><b>−100 у.о.</b><b>−80 у.о.</b></div>
+              <div><span>70%</span><i class="lad__bar" style="--a:70%"></i><b>−120 у.о.</b><b>−100 у.о.</b></div>
               <div class="-max"><span>Оплата 100%</span><i class="lad__bar" style="--a:100%"></i><b class="-span">−130 у.о.</b></div>
             </div>
           </div>
@@ -1445,10 +1448,10 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   const FX=45;                      // курс перерахунку прайсу в гривню (офіційний НБУ)
   const CAP=6000000;                // максимальна сума кредиту за єОселею
   const UNITS=[
-    {t:'1-кімнатна',h:8,a:[43.2,49.1],ppm:1080,eo:false},
-    {t:'2-кімнатна',h:8,a:[64.9,70.4],ppm:1080,eo:false},
-    {t:'2-кімнатна',h:7,a:[67.1,74.6],ppm:1110,eo:true, where:'У зданому будинку'},
-    {t:'3-кімнатна',h:7,a:[90.6,91.7],ppm:1110,eo:true, where:'У зданому будинку'}
+    {t:'1-кімнатна',h:8,a:[43.2,49.1],ppm:1110,eo:false},
+    {t:'2-кімнатна',h:8,a:[64.9,70.4],ppm:1095,eo:false},
+    {t:'2-кімнатна',h:7,a:[67.7,74.6],ppm:1150,eo:true },
+    {t:'3-кімнатна',h:7,a:[90.6,91.7],ppm:1110,eo:true }
   ];
   const MINDOWN={7:30,8:20};                 // мінімальний перший внесок у розтермінуванні, %
   const EO_DOWN=10;                          // мінімальний внесок за єОселею
@@ -1457,8 +1460,8 @@ body.qz-open .qz__fab{background:var(--yellow-d);}
   // Знижка з прайсу, у.о. за м². Сходинки за розміром першого внеску.
   const disc=(h,d,y)=>{ if(d>=100)return 130;
     if(h===7)  return d>=70?100:d>=50?80:d>=30?60:0;
-    if(y>=3)   return d>=70?100:d>=50?70:d>=20?50:0;
-    return       d>=70?110:d>=50?90:d>=20?70:0; };
+    if(y>=3)   return d>=70?100:d>=50?80:d>=20?60:0;
+    return       d>=70?120:d>=50?100:d>=20?80:0; };
 
   const fmt=n=>Math.round(n).toLocaleString('uk-UA').replace(/ /g,' ');
   const m2=n=>n.toFixed(1).replace('.',',');
